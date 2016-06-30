@@ -1,0 +1,7 @@
+User-Agent: *
+Disallow: /harm-humans
+Disallow: /permit-harm
+
+User-Agent: *
+Allow: /protect-self
+Allow: *
