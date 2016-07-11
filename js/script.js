@@ -1,6 +1,6 @@
-var email = document.querySelector("#hugo-email")
+var email = document.querySelector("#hugo-email");
 
 if (email) {
-  email.innerText = "hello@thisishugo.com"
-  email.href="mailto:hello@thisishugo.com"
+  email.innerText = "hello@thisishugo.com";
+  email.href="mailto:hello@thisishugo.com";
 }
