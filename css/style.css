@@ -21,6 +21,10 @@ h1 {
   border: 1px solid rgb(30,30,30);
 }
 
+.wrapper {
+  height: 100%;
+}
+
 .content {
   height: 100%;
   flex-direction: column;
