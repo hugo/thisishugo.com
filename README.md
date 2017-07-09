@@ -1,1 +1,1 @@
-Hugo has a website - [thisishugo.com](http://thisishugo.com) - and these files are what drive it.
+How the sausage that is [thisishugo.com](http://thisishugo.com) is made.
