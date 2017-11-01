@@ -1,6 +1,8 @@
-for (const el of document.querySelectorAll('.email-hugo')) {
+for (const el of document.querySelectorAll('.email')) {
+  const href = el.innerText.replace('[at]', '@').replace('[dot]', '.')
   const link = document.createElement('a')
-  link.href = 'mailto:hello@thisishugo.com'
-  link.innerHTML = 'hello@thisishugo.com'
+  link.href = 'mailto:' + href
+  link.innerHTML = href
+  link.classList.add('link')
   el.parentNode.replaceChild(link, el)
 }

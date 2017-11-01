@@ -1,0 +1,30 @@
+{
+  "name": "hugo.github.com",
+  "version": "0.3.0",
+  "description": "Hugo Jobling's Website",
+  "main": "index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^4.3.0",
+    "prettier": "1.7.4"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "**/*.{js,json,css}": ["prettier --write", "git add"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hugo/thisishugo.com.git"
+  },
+  "keywords": ["hugo", "jobling", "hugo jobling"],
+  "author": "Hugo Jobling <hello@thisishugo.com> (https://thisishugo.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hugo/hugo.github.com/issues"
+  },
+  "homepage": "https://github.com/hugo/hugo.github.com#readme"
+}

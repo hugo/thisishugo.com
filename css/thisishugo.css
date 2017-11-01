@@ -1,63 +1,59 @@
 html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   height: 100%;
 }
 
 body {
   box-sizing: border-box;
-  margin: 0;
-  padding: .25rem .5rem;
   font-size: 18px;
+  height: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: 'head photo' 'tail photo';
+}
+
+.head {
+  grid-area: head;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.photo {
+  grid-area: photo;
+  display: flex;
+  background-image: url('/img/hugo_large.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.tail {
+  grid-area: tail;
+  display: flex;
+  flex-direction: column;
+}
+
+.links {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.link {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 1rem;
+  text-decoration: none;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
-}
-
-.content {
-  max-width: 640px;
-}
-
-.intro {
-  display: flex;
-  justify-content: center;
-}
-
-.blurb {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.blurb > p {
-  margin: .5rem;
-}
-
-.profile {
-  margin: .5rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.3),
-    -1px 2px 1px 2px rgba(0, 0, 0, 0.2), -1px 0 4px rgba(0, 0, 0, 0.8);
-}
-
-.about > p {
-  line-height: 3rem;
-  text-align: center;
-}
-
-.twentysevenpartners,
-.medium,
-.github,
-.twitter {
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-}
-
-.twentysevenpartners {
-  background-color: #ffcc00;
-  color: #000;
 }
 
 .medium {
@@ -75,38 +71,21 @@ body {
   color: #fff;
 }
 
-.email {
-  text-align: center;
+.hello-at {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (max-width: 480px) {
   body {
-    font-size: 22px;
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 50% 35%;
+    grid-template-areas: 'head' 'photo' 'tail';
   }
 
-  .about > p {
-    line-height: 3.5rem;
-  }
-}
-
-@media screen and (min-width: 568px) {
-  body {
-    font-size: 32px;
-  }
-
-  .about > p {
-    line-height: 4rem;
-  }
-
-  .blurb,
-  .profile,
-  .about {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
-
-  .profile {
-    height: 320px;
-    width: 320px;
+  .head {
+    text-align: center;
   }
 }
