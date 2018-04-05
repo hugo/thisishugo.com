@@ -4,3 +4,4 @@
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:;
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
