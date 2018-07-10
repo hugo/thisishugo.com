@@ -1,6 +1,6 @@
 {
   "name": "hugo.github.com",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Hugo Jobling's Website",
   "main": "index.html",
   "dependencies": {},
@@ -24,7 +24,7 @@
   "author": "Hugo Jobling <hello@thisishugo.com> (https://thisishugo.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hugo/hugo.github.com/issues"
+    "url": "https://github.com/hugo/thisishugo/issues"
   },
-  "homepage": "https://github.com/hugo/hugo.github.com#readme"
+  "homepage": "https://github.com/hugo/thisishugo.com"
 }
