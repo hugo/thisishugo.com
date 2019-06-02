@@ -1,1 +1,1 @@
-How the sausage that is [thisishugo.com](http://thisishugo.com) is made.
+How [thisishugo.com](http://thisishugo.com) is made.
