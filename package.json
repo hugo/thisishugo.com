@@ -11,7 +11,8 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write '**/*.{js,json,css,md,html}'"
   },
   "lint-staged": {
     "**/*.{js,json,css}": [
