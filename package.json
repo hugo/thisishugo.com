@@ -5,22 +5,29 @@
   "main": "index.html",
   "dependencies": {},
   "devDependencies": {
-    "husky": "^0.14.3",
-    "lint-staged": "^4.3.0",
-    "prettier": "1.7.4"
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
+    "prettier": "1.17.1"
   },
   "scripts": {
     "precommit": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
-    "**/*.{js,json,css}": ["prettier --write", "git add"]
+    "**/*.{js,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:hugo/thisishugo.com.git"
   },
-  "keywords": ["hugo", "jobling", "hugo jobling"],
+  "keywords": [
+    "hugo",
+    "jobling",
+    "hugo jobling"
+  ],
   "author": "Hugo Jobling <hello@thisishugo.com> (https://thisishugo.com)",
   "license": "MIT",
   "bugs": {
