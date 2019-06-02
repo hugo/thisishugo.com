@@ -6,7 +6,6 @@
   Link: </js/thisishugo.js>; rel=preload; as=script
   Link: </css/thisishugo.css>; rel=preload; as=style
   Link: </img/hugo.jpg>; rel=preload; as=image
-  Link: </img/bg.jpg>; rel=preload; as=image
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 /css/*
