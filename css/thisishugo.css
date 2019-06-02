@@ -26,6 +26,27 @@ body {
   padding-bottom: 8px;
 }
 
+@media screen and (max-height: 720px) {
+  .main {
+    background-image: url("/img/bg_720.jpg");
+  }
+}
+@media screen and (max-height: 1168px) {
+  .main {
+    background-image: url("/img/bg_1168.jpg");
+  }
+}
+@media screen and (max-height: 1543px) {
+  .main {
+    background-image: url("/img/bg_1543.jpg");
+  }
+}
+@media screen and (max-height: 1855px) {
+  .main {
+    background-image: url("/img/bg_1855.jpg");
+  }
+}
+
 .content {
   flex-basis: 24rem;
   background-color: white;
