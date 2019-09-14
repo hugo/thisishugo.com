@@ -7,7 +7,7 @@
   "devDependencies": {
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
-    "prettier": "1.17.1"
+    "prettier": "1.18.2"
   },
   "scripts": {
     "precommit": "lint-staged",
