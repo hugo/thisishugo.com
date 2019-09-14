@@ -1,0 +1,40 @@
+{
+  "name": "thisishugo.com",
+  "version": 2,
+  "alias": ["thisishugo.com", "thisishugo"],
+  "github": {
+    "enabled": true,
+    "autoAlias": true
+  },
+  "public": false,
+  "routes": [
+    {
+      "src": "/",
+      "headers": {
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:;",
+        "Referrer-Policy": "strict-origin",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+      }
+    },
+    {
+      "src": "/_next/static/css/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff"
+      }
+    },
+    {
+      "src": "/_next/static/images/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff"
+      }
+    }
+  ]
+}
