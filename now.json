@@ -8,6 +8,7 @@
   },
   "public": false,
   "routes": [
+    { "src": "/robots.txt", "dest": "/static/robots.txt" },
     {
       "src": "/",
       "headers": {
