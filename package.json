@@ -5,7 +5,7 @@
   "main": "index.html",
   "dependencies": {
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react-dom": "^16.10.1",
     "tailwindcss": "^1.1.2",
     "next": "^9.0.7"
   },
