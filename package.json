@@ -4,7 +4,7 @@
   "description": "Hugo Jobling's Website",
   "main": "index.html",
   "dependencies": {
-    "react": "^16.10.2",
+    "react": "^16.11.0",
     "react-dom": "^16.10.2",
     "tailwindcss": "^1.1.2",
     "next": "^9.1.1"
