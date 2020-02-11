@@ -42,8 +42,8 @@ export default () => (
       />
       <meta content={largeImage} name="twitter:image" />
 
-      <link href="/static/icons/favicon.ico" rel="shortcut icon" />
-      <link href="/static/icons/apple-touch-icon.png" rel="apple-touch-icon" />
+      <link href="/icons/favicon.ico" rel="shortcut icon" />
+      <link href="/icons/apple-touch-icon.png" rel="apple-touch-icon" />
     </Head>
   </div>
 );
