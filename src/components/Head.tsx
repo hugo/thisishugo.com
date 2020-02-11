@@ -1,7 +1,5 @@
 import Head from "next/head";
 
-import "../css/index.css";
-
 import largeImage from "../images/hugo_large.jpg";
 import ogImage from "../images/hugo_og.jpg";
 

@@ -1,21 +1,22 @@
-:global {
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  @tailwind screens;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "tailwindcss/screens";
 
-  html {
-    height: 100%;
-  }
-  body {
-    height: 100%;
-    background-color: #4299e1;
-  }
-  #__next {
-    height: 100%;
-  }
-  .bg-img {
-    background-image: url("../images/bg.jpg");
-    background-size: cover;
-  }
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: #4299e1;
+}
+
+#__next {
+  height: 100%;
+}
+
+.bg-img {
+  background-image: url("/images/bg.jpg");
+  background-size: cover;
 }
