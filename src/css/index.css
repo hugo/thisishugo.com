@@ -17,6 +17,27 @@ body {
 }
 
 .bg-img {
-  background-image: url("/images/bg.jpg");
+  background-image: url("/images/bg_720.jpg");
   background-size: cover;
+}
+
+@media (min-width: 720px) {
+  .bg-img {
+    background-image: url("/images/bg_1168.jpg");
+  }
+}
+@media (min-width: 1168px) {
+  .bg-img {
+    background-image: url("/images/bg_1543.jpg");
+  }
+}
+@media (min-width: 1543px) {
+  .bg-img {
+    background-image: url("/images/bg_1855.jpg");
+  }
+}
+@media (min-width: 1855px) {
+  .bg-img {
+    background-image: url("/images/bg.jpg");
+  }
 }
