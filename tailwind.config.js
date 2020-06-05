@@ -1,5 +1,9 @@
 module.exports = {
   prefix: '',
+  purge: {
+    enabled: true,
+    content: ['./src/**/*.tsx'],
+  },
   important: false,
   separator: ':',
   theme: {
