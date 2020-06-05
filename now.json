@@ -6,6 +6,9 @@
     "enabled": true,
     "autoAlias": true
   },
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1"
+  },
   "public": false,
   "routes": [
     {
