@@ -68,7 +68,7 @@ jobs:
           command: npm run prettier:check
       - run:
           name: "Lint with TSLint"
-          command: npm run tslint
+          command: npm run eslint
 
   test:
     <<: *container_config
