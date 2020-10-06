@@ -1,10 +1,11 @@
+/* eslint-env node */
+
 const purgecss =
-  // process.env.NODE_ENV === 'production'
-  true
+  process.env.NODE_ENV === 'production'
     ? {
         '@fullhuman/postcss-purgecss': {
           content: ['./**/*.tsx'],
-          whitelist: ['html', 'body', '__next'],
+          safelist: ['html', 'body', '__next'],
           defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
         },
       }
