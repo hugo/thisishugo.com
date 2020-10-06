@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    labels:
+      - "dependencies"
+      - "github_actions"
+      - "automerge"
+    schedule:
+      interval: "daily"
+      time: "07:00"
+      timezone: "Europe/London"
+  - package-ecosystem: "npm"
+    directory: "/"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "automerge"
+    schedule:
+      interval: "daily"
+      time: "07:00"
+      timezone: "Europe/London"
