@@ -1,5 +1,11 @@
+/* eslint-env node */
+
 module.exports = {
   prefix: '',
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
   purge: {
     enabled: true,
     content: ['./src/**/*.tsx'],
