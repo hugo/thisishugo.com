@@ -1,3 +1,6 @@
 version = 1
 [merge]
 merge.method = "rebase"
+
+[approve]
+auto_approve_usernames = ["dependabot"]
