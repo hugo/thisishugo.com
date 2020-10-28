@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -43,9 +45,7 @@ module.exports = {
     {
       files: ['*.tsx'],
       rules: {
-        'react/react-in-jsx-scope': 'off',
-        // TODO: fix this and enable it
-        'react/display-name': 'off',
+        'react/react-in-jsx-scope': 'error',
       },
     },
   ],
