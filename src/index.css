@@ -10,10 +10,7 @@ html {
 body {
   height: 100%;
   background-color: #4299e1;
-}
-
-#__next {
-  height: 100%;
+  display: flex;
 }
 
 .bg-img {

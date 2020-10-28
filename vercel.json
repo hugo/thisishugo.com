@@ -1,15 +1,23 @@
 {
-  "name": "thisishugo.com",
   "version": 2,
   "alias": ["thisishugo.com", "thisishugo"],
   "github": {
     "enabled": true,
     "autoAlias": true
   },
-  "env": {
-    "NEXT_TELEMETRY_DISABLED": "1"
+  "build": {
+    "env": {
+      "NPM_RC": "~/.npmrc",
+      "NODE_ENV": "production",
+      "REMIX_TOKEN": "@remix-token"
+    }
   },
   "public": false,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "build/**"
+    }
+  },
   "routes": [
     {
       "src": "/",
@@ -25,19 +33,26 @@
       "src": "/(.*)",
       "headers": {
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
-      }
+      },
+      "continue": true
     },
     {
-      "src": "/_next/static/css/(.*)",
+      "src": "/css/(.*)",
+      "dest": "/public/css/(.*)",
       "headers": {
         "X-Content-Type-Options": "nosniff"
-      }
+      },
+      "continue": true
     },
     {
-      "src": "/_next/static/images/(.*)",
+      "src": "/images/(.*)",
+      "dest": "/public/images/(.*)",
       "headers": {
         "X-Content-Type-Options": "nosniff"
-      }
-    }
+      },
+      "continue": true
+    },
+    { "handle": "filesystem" },
+    { "src": "/", "dest": "/api" }
   ]
 }

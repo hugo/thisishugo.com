@@ -1,0 +1,14 @@
+{
+  "extends": "../config/shared-tsconfig.json",
+  "compilerOptions": {
+    "esModuleInterop": false,
+    "declaration": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "outDir": "."
+  },
+  "include": ["**/*"],
+}

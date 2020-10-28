@@ -1,13 +1,15 @@
-import Layout from "../components/Layout";
+import React from 'react'
 
-import img from "../images/hugo.jpg";
+export function meta() {
+  return {title: 'Hugo Jobling'}
+}
 
-export default () => (
-  <Layout>
-    <div className="bg-img h-full flex justify-center items-center">
+export default function Index() {
+  return (
+    <div className="flex-1 bg-img h-full flex justify-center items-center">
       <div className="bg-gray-100 flex flex-col justify-around items-center border-2 border-solid border-gray-700 rounded py-2 px-12">
         <img
-          src={img}
+          src="/images/hugo.jpg"
           className="-mt-20 rounded-full border-2 border-solid border-blue-900"
           width="128"
           height="128"
@@ -47,5 +49,5 @@ export default () => (
         </div>
       </div>
     </div>
-  </Layout>
-);
+  )
+}
