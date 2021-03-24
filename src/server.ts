@@ -23,10 +23,7 @@ if (process.env.NODE_ENV === 'production') {
           styleSrcElem: ["'self'"],
         },
       },
-      hsts: {
-        maxAge: 63072000,
-        preload: true,
-      },
+      hsts: false,
     })
   )
 } else {
@@ -49,6 +46,19 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(express.static('public'))
+
+const hstsMiddleware = helmet.hsts({
+  maxAge: 63072000,
+  preload: true,
+})
+
+app.use((req, res, next) => {
+  if (req.get('X-Forwarded-Proto') == 'https') {
+    hstsMiddleware(req, res, next)
+  } else {
+    next()
+  }
+})
 
 app.get('*', (req, res, next) => {
   if (
