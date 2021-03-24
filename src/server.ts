@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
     helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: ["'none'"],
-        scriptSrc: ["'self'", 'http://localhost:8002'],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'http://localhost:8002'],
         scriptSrcElem: [
           "'self'",
           "https: 'unsafe-inline'",
