@@ -1,4 +1,9 @@
 version: 2
+registries:
+      npm-remix:
+        type: npm-registry
+        url: https://npm.remix.run
+        token: ${{secrets.REMIX_TOKEN}}
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -12,3 +17,5 @@ updates:
       interval: "daily"
       time: "07:00"
       timezone: "Europe/London"
+    registries:
+      - npm-remix
