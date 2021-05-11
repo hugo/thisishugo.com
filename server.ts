@@ -1,10 +1,13 @@
 import {URL} from 'url'
-import * as express from 'express'
-import * as morgan from 'morgan'
-import * as helmet from 'helmet'
+
+import express from 'express'
+import morgan from 'morgan'
+import helmet from 'helmet'
 import {createRequestHandler} from '@remix-run/express'
 
 const app = express()
+
+app.disable('x-powered-by')
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
@@ -31,15 +34,15 @@ if (process.env.NODE_ENV === 'production') {
     helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: ["'none'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", 'http://localhost:8002'],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'http://localhost:3000'],
         scriptSrcElem: [
           "'self'",
           "https: 'unsafe-inline'",
-          'http://localhost:8002',
+          'http://localhost:3000',
         ],
         imgSrc: ["'self'", 'data:'],
-        styleSrc: ["'self'", 'http://localhost:8002'],
-        styleSrcElem: ["'self'", 'http://localhost:8002'],
+        styleSrc: ["'self'", 'http://localhost:3000'],
+        styleSrcElem: ["'self'", 'http://localhost:3000'],
       },
     })
   )
@@ -88,9 +91,7 @@ app.get('*', (req, res, next) => {
 app.get(
   '*',
   createRequestHandler({
-    getLoadContext() {
-      return {}
-    },
+    build: require('./build'),
   })
 )
 

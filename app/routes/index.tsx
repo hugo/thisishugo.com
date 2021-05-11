@@ -1,8 +1,8 @@
-import React from 'react'
+import type {MetaFunction} from 'remix'
 
-export function meta() {
-  return {title: 'Hugo Jobling'}
-}
+export let meta: MetaFunction = () => ({
+  title: 'Hugo Jobling',
+})
 
 export default function Index() {
   return (

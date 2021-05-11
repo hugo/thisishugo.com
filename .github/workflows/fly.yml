@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: docker/setup-buildx-action@v1
       - uses: superfly/flyctl-actions@1.1
         with:
           args: "deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}"
         env:
+          DOCKER_BUILDKIT: "1"
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           REMIX_TOKEN: ${{ secrets.REMIX_TOKEN }}

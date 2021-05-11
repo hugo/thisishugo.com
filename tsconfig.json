@@ -1,5 +1,14 @@
 {
-  "compilerOptions": {},
-  "files": [],
-  "references": [{ "path": "app" }, { "path": "loaders" }, { "path": "src" }]
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "declaration": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2020"
+  },
+  "include": ["server.ts"]
 }

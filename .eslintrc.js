@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -10,32 +8,67 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'jest', 'react-hooks', 'prettier'],
+  plugins: ['@typescript-eslint', 'jest', 'react-hooks'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'prettier',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
   ],
   settings: {
     react: {
       version: 'detect',
     },
   },
+  ignorePatterns: ['node_modules/', 'build/', 'public/build/', '.cache/'],
   rules: {
-    'react/prop-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/member-delimiter-style': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
 
+    'prefer-const': 'off',
+
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        groups: [
+          'builtin',
+          'external',
+          ['index', 'parent', 'sibling'],
+          'internal',
+          'object',
+        ],
+      },
+    ],
+
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
   overrides: [
+    {
+      parser: 'espree',
+      files: [
+        '.eslintrc.js',
+        'jest.config.js',
+        'jest-platywright.config.js',
+        'pm2.config.js',
+        'prettier.config.js',
+        'postcss.config.js',
+        'remix.config.js',
+        'tailwind.config.js',
+      ],
+      env: {node: true},
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
     {
       files: ['*.test.ts', '*.test.tsx'],
       env: {
@@ -45,7 +78,8 @@ module.exports = {
     {
       files: ['*.tsx'],
       rules: {
-        'react/react-in-jsx-scope': 'error',
+        'react/prop-types': 'off',
+        'react/react-in-jsx-scope': 'off',
       },
     },
   ],
