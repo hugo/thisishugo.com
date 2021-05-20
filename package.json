@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@remix-run/express": "^0.17.0",
-    "@remix-run/node": "^0.17.0",
+    "@remix-run/node": "^0.17.3",
     "@remix-run/react": "^0.17.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
