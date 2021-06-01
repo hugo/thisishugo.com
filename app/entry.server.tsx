@@ -21,6 +21,14 @@ export default function handleRequest(
 
   let headers = new Headers(responseHeaders)
   headers.set('Content-Type', 'text/html')
+  headers.set('X-Powered-By', 'gremlins')
+
+  if (proto === 'https') {
+    headers.set(
+      'Strict-Transport-Security',
+      'max-age=63072000; includeSubDomains; preload'
+    )
+  }
 
   return new Response('<!DOCTYPE html>' + markup, {
     status: responseStatusCode,

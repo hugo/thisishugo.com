@@ -30,6 +30,28 @@ export let meta: MetaFunction = () => ({
   'twitter:image': '/images/hugo_large.jpg',
 })
 
+let csps = {
+  development: [
+    "default-src 'none'",
+    "script-src 'unsafe-inline' http://localhost:3000",
+    "script-src-elem 'unsafe-inline' http://localhost:3000",
+    "style-src 'self'",
+    "style-src-elem 'self' http://localhost:3000",
+    "img-src 'self' data:",
+    'connect-src ws://localhost:3001',
+    "require-trusted-types-for 'script'",
+  ].join('; '),
+  production: [
+    "default-src 'none'",
+    "script-src 'self' 'unsafe-inline' https:",
+    "script-src-elem 'self' 'unsafe-inline' https:",
+    "style-src 'self'",
+    "style-src-elem 'self'",
+    "img-src 'self' data:",
+    "require-trusted-types-for 'script'",
+  ].join('; '),
+}
+
 export default function App() {
   return (
     <html lang="en">
