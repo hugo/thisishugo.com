@@ -8,19 +8,14 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x]
-
     env:
       REMIX_TOKEN: ${{ secrets.REMIX_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2.1.5
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "14"
       - run: npm ci
       - run: TAILWIND_MODE=build npm run postcss:build
       - run: npm run eslint
