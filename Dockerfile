@@ -55,7 +55,6 @@ COPY package.json package-lock.json ./
 COPY --from=deps-prod /deps/node_modules node_modules
 COPY --from=build /build/build build
 COPY --from=build /build/public public
-COPY --from=build /build/server.js server.js
 
 ENV PATH="$PATH:node_modules/.bin"
 ENV NODE_ENV="production"
