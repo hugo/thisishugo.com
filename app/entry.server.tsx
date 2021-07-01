@@ -30,10 +30,23 @@ export default function handleRequest(
   remixContext: EntryContext
 ) {
   let proto = request.headers.get('X-Forwarded-Proto')
+  let url = new URL(request.url)
 
   if (process.env.NODE_ENV === 'production' && proto !== 'https') {
-    let url = new URL(request.url)
     url.protocol = 'https'
+    return redirect(url.toString(), {
+      status: 307,
+      headers: {
+        'X-Powered-By': 'gremlins',
+      },
+    })
+  }
+
+  if (
+    process.env.NODE_ENV === 'production' &&
+    url.hostname === 'www.thisishugo.com'
+  ) {
+    url.hostname = 'thisishugo.com'
     return redirect(url.toString(), {
       status: 307,
       headers: {
