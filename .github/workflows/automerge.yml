@@ -1,0 +1,17 @@
+name: Auto-merge
+
+on:
+  pull_request_target:
+    branches: [main]
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable auto-merge for new PRs
+        run: gh pr merge --auto --rebase "$URL"
+        if: github.actor == 'dependabot[bot]'
+        env:
+          URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.REPO_GITHUB_TOKEN}}
