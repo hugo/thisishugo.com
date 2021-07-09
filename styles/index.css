@@ -11,30 +11,29 @@ body {
   height: 100%;
   background-color: #4299e1;
   display: flex;
-}
-
-.bg-img {
+  padding: env(safe-area-inset-top, 1rem) env(safe-area-inset-right, 1rem)
+    env(safe-area-inset-bottom, 1rem) env(safe-area-inset-left, 1rem);
   background-image: url("/images/bg_720.jpg");
   background-size: cover;
 }
 
 @media (min-width: 720px) {
-  .bg-img {
+  body {
     background-image: url("/images/bg_1168.jpg");
   }
 }
 @media (min-width: 1168px) {
-  .bg-img {
+  body {
     background-image: url("/images/bg_1543.jpg");
   }
 }
 @media (min-width: 1543px) {
-  .bg-img {
+  body {
     background-image: url("/images/bg_1855.jpg");
   }
 }
 @media (min-width: 1855px) {
-  .bg-img {
+  body {
     background-image: url("/images/bg.jpg");
   }
 }
