@@ -28,6 +28,8 @@ export let meta: MetaFunction = () => ({
   'twitter:title': 'Hugo Jobling',
   'twitter:description': 'Programmer, writer, and human',
   'twitter:image': '/images/hugo_large.jpg',
+
+  'theme-color': 'rgb(75, 106, 136)',
 })
 
 export default function App() {
