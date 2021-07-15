@@ -14,6 +14,7 @@ body {
   padding: env(safe-area-inset-top, 1rem) env(safe-area-inset-right, 1rem)
     env(safe-area-inset-bottom, 1rem) env(safe-area-inset-left, 1rem);
   background-image: url("/images/bg_720.jpg");
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
