@@ -32,7 +32,7 @@
     "remix": "^0.17.5"
   },
   "devDependencies": {
-    "@remix-run/dev": "^0.17.5",
+    "@remix-run/dev": "^0.18.0",
     "@tailwindcss/jit": "^0.1.18",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
