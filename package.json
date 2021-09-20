@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@remix-run/node": "^0.17.5",
-    "@remix-run/react": "^0.18.1",
+    "@remix-run/react": "^0.18.2",
     "@remix-run/serve": "^0.18.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -32,7 +32,7 @@
     "remix": "^0.17.5"
   },
   "devDependencies": {
-    "@remix-run/dev": "^0.18.1",
+    "@remix-run/dev": "^0.18.2",
     "@tailwindcss/jit": "^0.1.18",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
@@ -48,7 +48,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jest": "^24.4.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.25.2",
+    "eslint-plugin-react": "^7.25.3",
     "eslint-plugin-react-hooks": "^4.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.2.0",
