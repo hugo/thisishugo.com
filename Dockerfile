@@ -12,7 +12,7 @@ ARG REMIX_TOKEN
 
 COPY package.json package-lock.json .npmrc ./
 
-RUN npm ci
+RUN npm ci --unsafe-perm
 
 # ---
 
@@ -26,7 +26,7 @@ COPY package.json package-lock.json .npmrc ./
 
 ENV NODE_ENV=production
 
-RUN npm ci
+RUN npm ci --unsafe-perm
 
 # ---
 

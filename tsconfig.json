@@ -10,5 +10,5 @@
     "module": "commonjs",
     "target": "es2020"
   },
-  "include": ["server.ts"]
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
 }
