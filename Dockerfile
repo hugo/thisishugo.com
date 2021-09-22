@@ -1,10 +1,4 @@
-FROM node:14-alpine3.13 as base
-
-RUN apk add --update --no-cache python3 make g++ vips-dev
-
-# ---
-
-FROM base as deps-dev
+FROM node:14-alpine3.13 as deps-dev
 
 WORKDIR /deps
 
@@ -30,7 +24,7 @@ RUN npm ci --unsafe-perm
 
 # ---
 
-FROM base as build
+FROM node:14-alpine3.13 as build
 
 ARG REMIX_TOKEN
 
