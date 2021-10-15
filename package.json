@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@remix-run/dev": "^0.19.3",
-    "@remix-run/node": "^0.19.2",
+    "@remix-run/node": "^0.19.3",
     "@remix-run/react": "^0.19.3",
     "@remix-run/serve": "^0.19.2",
     "react": "^17.0.2",
