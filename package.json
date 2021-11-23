@@ -23,7 +23,7 @@
     "npm": "7"
   },
   "dependencies": {
-    "@remix-run/dev": "^0.21.0",
+    "@remix-run/dev": "^1.0.4",
     "@remix-run/node": "^0.21.0",
     "@remix-run/react": "^0.21.0",
     "@remix-run/serve": "^0.20.1",
