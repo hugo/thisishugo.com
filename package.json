@@ -55,7 +55,7 @@
     "jest": "^27.3.1",
     "jest-junit": "^13.0.0",
     "pm2": "^5.1.2",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.1",
     "postcss-cli": "^9.0.2",
     "prettier": "^2.4.1",
     "tailwindcss": "^2.1.4",
