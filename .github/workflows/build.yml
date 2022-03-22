@@ -8,9 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      REMIX_TOKEN: ${{ secrets.REMIX_TOKEN }}
-
     steps:
       - uses: actions/checkout@v3
         with:
@@ -25,6 +22,5 @@ jobs:
         name: Build
         with:
           push: false
-          build-args: REMIX_TOKEN=${{ env.REMIX_TOKEN }}
           cache-from: |
             type=local,src=/tmp/.buildx-cache

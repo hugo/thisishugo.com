@@ -8,9 +8,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      REMIX_TOKEN: ${{ secrets.REMIX_TOKEN }}
-
     steps:
       - uses: actions/checkout@v3
         with:
