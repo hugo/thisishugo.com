@@ -4,7 +4,7 @@ WORKDIR /deps
 
 COPY package.json package-lock.json ./
 
-RUN npm ci --unsafe-perm
+RUN npm ci
 
 # ---
 
@@ -16,7 +16,7 @@ COPY package.json package-lock.json ./
 
 ENV NODE_ENV=production
 
-RUN npm ci --unsafe-perm
+RUN npm ci
 
 # ---
 
