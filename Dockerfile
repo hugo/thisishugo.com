@@ -1,4 +1,4 @@
-FROM node:14-alpine3.13 as deps-dev
+FROM node:16-alpine3.14 as deps-dev
 
 WORKDIR /deps
 
@@ -8,7 +8,7 @@ RUN npm ci --unsafe-perm
 
 # ---
 
-FROM node:14-alpine3.13 as deps-prod
+FROM node:16-alpine3.14 as deps-prod
 
 WORKDIR /deps
 
@@ -20,7 +20,7 @@ RUN npm ci --unsafe-perm
 
 # ---
 
-FROM node:14-alpine3.13 as build
+FROM node:16-alpine3.14 as build
 
 ENV NODE_ENV=production
 
@@ -34,7 +34,7 @@ RUN npm run build
 
 # ---
 
-FROM node:14-alpine3.13
+FROM node:16-alpine3.14
 
 WORKDIR /app
 
