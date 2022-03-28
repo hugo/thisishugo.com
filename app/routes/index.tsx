@@ -15,7 +15,7 @@ export default function Index() {
               className="-mt-20 rounded-full border-2 border-solid border-blue-900"
               width="128"
               height="128"
-              alt="photo of hugo"
+              alt="profile of hugo"
             />
 
             <h1 className="text-xl md:text-3xl m-1 md:m-2">

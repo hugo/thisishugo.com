@@ -21,6 +21,9 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
+    '@remix-run/eslint-config',
+    '@remix-run/eslint-config/node',
+    '@remix-run/eslint-config/jest',
   ],
   settings: {
     react: {

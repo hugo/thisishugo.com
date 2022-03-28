@@ -13,7 +13,7 @@ describe('<Index />', () => {
   test('photo', () => {
     const {getByAltText} = render(<Index />)
 
-    const subject = getByAltText('photo of hugo')
+    const subject = getByAltText('profile of hugo')
 
     expect(subject).toHaveAttribute('src', '/images/hugo.jpg')
   })
