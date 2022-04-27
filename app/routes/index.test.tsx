@@ -1,6 +1,6 @@
 import {render} from '@testing-library/react'
 
-import Index from '../../routes'
+import Index from './index'
 
 describe('<Index />', () => {
   test('welcome message', () => {
