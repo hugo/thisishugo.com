@@ -18,7 +18,7 @@ jobs:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
-      - uses: docker/build-push-action@v2
+      - uses: docker/build-push-action@v3
         name: Build
         with:
           push: false
