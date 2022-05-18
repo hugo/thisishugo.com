@@ -13,9 +13,4 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/app/tsconfig.json',
-    },
-  },
 }

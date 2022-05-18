@@ -9,7 +9,15 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "module": "commonjs",
-    "target": "es2020"
+    "target": "es2020",
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "paths": {},
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "resolveJsonModule": true
   },
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
 }
