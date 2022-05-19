@@ -26,12 +26,12 @@
     "@remix-run/dev": "1.5.0",
     "@remix-run/node": "^1.5.0",
     "@remix-run/react": "1.5.0",
-    "@remix-run/serve": "1.5.0",
+    "@remix-run/serve": "1.5.1",
     "react": "^18.0.0",
     "react-dom": "^18.1.0",
     "react-router": "^6.1.1",
     "react-router-dom": "^6.3.0",
-    "remix": "1.5.0"
+    "remix": "1.5.1"
   },
   "devDependencies": {
     "@remix-run/eslint-config": "^1.5.0",
@@ -49,7 +49,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.2.2",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
