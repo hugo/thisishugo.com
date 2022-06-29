@@ -14,19 +14,19 @@ export let links: LinksFunction = () => {
 
 export let meta: MetaFunction = () => ({
   viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
-  description: 'Hugo Jobling. A programmer, writer, and human',
+  description: 'Hugo Jobling. Trying my best.',
 
   'og:title': 'Hugo Jobling',
   'og:site_name': 'Hugo Jobling',
   'og:url': 'https://thisishugo.com',
-  'og:description': 'Hugo Jobling. A programmer, writer, and human',
+  'og:description': 'Hugo Jobling. Trying my best',
   'og:profile': 'profile',
   'og:image': '/images/hugo_large.jpg',
 
   'twitter:card': 'summary',
   'twitter:site': '@dissimile',
   'twitter:title': 'Hugo Jobling',
-  'twitter:description': 'Programmer, writer, and human',
+  'twitter:description': 'Trying my best',
   'twitter:image': '/images/hugo_large.jpg',
 
   'theme-color': 'rgb(75, 106, 136)',
