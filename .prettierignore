@@ -5,3 +5,4 @@ coverage/
 server-build/
 public/build/
 public/css/index.css
+build/
