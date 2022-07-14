@@ -1,5 +1,9 @@
-import ReactDOMServer from 'react-dom/server'
-import {RemixServer as Remix, EntryContext, redirect} from 'remix'
+import {PassThrough} from 'stream'
+
+import {renderToPipeableStream} from 'react-dom/server'
+import {RemixServer} from '@remix-run/react'
+import {Response, Headers, redirect} from '@remix-run/node'
+import type {EntryContext} from '@remix-run/node'
 
 let csp =
   process.env.NODE_ENV === 'production'
@@ -10,7 +14,8 @@ let csp =
         "style-src 'self'",
         "style-src-elem 'self'",
         "img-src 'self' data:",
-        "require-trusted-types-for 'script'",
+        // "require-trusted-types-for 'script'",
+        'connect-src http://localhost:3000/api/events',
       ].join('; ')
     : [
         "default-src 'none'",
@@ -19,9 +24,11 @@ let csp =
         "style-src 'self'",
         "style-src-elem 'self' http://localhost:3000",
         "img-src 'self' data:",
-        'connect-src ws://localhost:3001',
-        "require-trusted-types-for 'script'",
+        'connect-src ws://localhost:8002 http://localhost:3000/api/events',
+        // "require-trusted-types-for 'script'",
       ].join('; ')
+
+const ABORT_DELAY = 5000
 
 export default function handleRequest(
   request: Request,
@@ -55,10 +62,6 @@ export default function handleRequest(
     })
   }
 
-  let markup = ReactDOMServer.renderToString(
-    <Remix context={remixContext} url={request.url} />
-  )
-
   let headers = new Headers(responseHeaders)
   headers.set('Content-Type', 'text/html')
   headers.set('X-Powered-By', 'gremlins')
@@ -68,8 +71,34 @@ export default function handleRequest(
   )
   headers.set('Content-Security-Policy', csp)
 
-  return new Response('<!DOCTYPE html>' + markup, {
-    status: responseStatusCode,
-    headers,
+  return new Promise((resolve, reject) => {
+    let didError = false
+
+    const {pipe, abort} = renderToPipeableStream(
+      <RemixServer context={remixContext} url={request.url} />,
+      {
+        onShellReady() {
+          let body = new PassThrough()
+
+          responseHeaders.set('Content-Type', 'text/html')
+
+          resolve(
+            new Response(body, {
+              status: didError ? 500 : responseStatusCode,
+              headers,
+            })
+          )
+          pipe(body)
+        },
+        onShellError(err: unknown) {
+          reject(err)
+        },
+        onError(error: unknown) {
+          didError = true
+          console.error(error)
+        },
+      }
+    )
+    setTimeout(abort, ABORT_DELAY)
   })
 }

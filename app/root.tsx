@@ -1,5 +1,5 @@
-import type {LinksFunction, MetaFunction} from 'remix'
-import {Meta, Links, LiveReload} from 'remix'
+import type {LinksFunction, MetaFunction} from '@remix-run/node'
+import {Links, LiveReload, Meta, Scripts} from '@remix-run/react'
 import {Outlet} from 'react-router-dom'
 
 import styles from './styles/index.css'
@@ -67,7 +67,7 @@ export function ErrorBoundary({error}: {error: Error}) {
           </p>
         </div>
 
-        {/* <Scripts /> */}
+        <Scripts />
       </body>
     </html>
   )
