@@ -22,7 +22,7 @@
     "npm": "8"
   },
   "dependencies": {
-    "@remix-run/node": "1.6.5",
+    "@remix-run/node": "1.6.7",
     "@remix-run/react": "1.6.5",
     "@remix-run/serve": "1.6.5",
     "react": "^18.0.0",
@@ -41,11 +41,11 @@
     "@types/react-dom": "^18.0.4",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "autoprefixer": "^10.4.7",
+    "autoprefixer": "^10.4.8",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-jest": "^26.7.0",
     "eslint-plugin-prettier": "^4.1.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
