@@ -35,7 +35,7 @@
     "@remix-run/eslint-config": "1.6.8",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.2.0",
-    "@types/jest": "^28.1.6",
+    "@types/jest": "^28.1.7",
     "@types/node": "^18.7.5",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.4",
