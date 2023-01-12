@@ -18,8 +18,8 @@
     "prettier:check": "npm run prettier -- --check"
   },
   "engines": {
-    "node": "16",
-    "npm": "8"
+    "node": "18",
+    "npm": "9"
   },
   "dependencies": {
     "@remix-run/node": "1.10.0",
