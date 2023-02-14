@@ -12,6 +12,8 @@ updates:
       interval: "daily"
       time: "07:00"
       timezone: "Europe/London"
+    ignore:
+      - dependency-name: "@remix-run/*"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
