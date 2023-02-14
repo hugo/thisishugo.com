@@ -2,28 +2,26 @@ import {render} from '@testing-library/react'
 
 import Index from './index'
 
-describe('<Index />', () => {
-  test('welcome message', () => {
-    const {getByText} = render(<Index />)
-    const subject = getByText('Hello, this is Hugo')
+test('welcome message', () => {
+  const {getByText} = render(<Index />)
+  const subject = getByText('Hello, this is Hugo')
 
-    expect(subject).toBeInTheDocument()
-  })
+  expect(subject).toBeInTheDocument()
+})
 
-  test('photo', () => {
-    const {getByAltText} = render(<Index />)
+test('photo', () => {
+  const {getByAltText} = render(<Index />)
 
-    const subject = getByAltText('profile of hugo')
+  const subject = getByAltText('profile of hugo')
 
-    expect(subject).toHaveAttribute('src', '/images/hugo.jpg')
-  })
+  expect(subject).toHaveAttribute('src', '/images/hugo.jpg')
+})
 
-  test('email', () => {
-    const {getByText} = render(<Index />)
+test('email', () => {
+  const {getByText} = render(<Index />)
 
-    const email = 'hello@thisishugo.com'
-    const subject = getByText(email)
+  const email = 'hello@thisishugo.com'
+  const subject = getByText(email)
 
-    expect(subject).toHaveAttribute('href', `mailto:${email}`)
-  })
+  expect(subject).toHaveAttribute('href', `mailto:${email}`)
 })
