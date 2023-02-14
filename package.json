@@ -22,17 +22,17 @@
     "npm": "9"
   },
   "dependencies": {
-    "@remix-run/node": "1.10.0",
-    "@remix-run/react": "1.10.0",
-    "@remix-run/serve": "1.10.0",
+    "@remix-run/node": "1.12.0",
+    "@remix-run/react": "1.12.0",
+    "@remix-run/serve": "1.12.0",
     "react": "^18.0.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.6.0",
     "react-router-dom": "^6.6.2"
   },
   "devDependencies": {
-    "@remix-run/dev": "1.10.0",
-    "@remix-run/eslint-config": "1.10.0",
+    "@remix-run/dev": "1.12.0",
+    "@remix-run/eslint-config": "1.12.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.5",
