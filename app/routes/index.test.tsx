@@ -1,27 +1,27 @@
-import {render} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 
 import Index from './index'
 
 test('welcome message', () => {
-  const {getByText} = render(<Index />)
-  const subject = getByText('Hello, this is Hugo')
+  render(<Index />)
+  const subject = screen.getByText('Hello, this is Hugo')
 
   expect(subject).toBeInTheDocument()
 })
 
 test('photo', () => {
-  const {getByAltText} = render(<Index />)
+  render(<Index />)
 
-  const subject = getByAltText('profile of hugo')
+  const subject = screen.getByAltText('profile of hugo')
 
   expect(subject).toHaveAttribute('src', '/images/hugo.jpg')
 })
 
 test('email', () => {
-  const {getByText} = render(<Index />)
+  render(<Index />)
 
   const email = 'hello@thisishugo.com'
-  const subject = getByText(email)
+  const subject = screen.getByText(email)
 
   expect(subject).toHaveAttribute('href', `mailto:${email}`)
 })
