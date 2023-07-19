@@ -23,7 +23,7 @@ module.exports = {
     'plugin:import/typescript',
     '@remix-run/eslint-config',
     '@remix-run/eslint-config/node',
-    '@remix-run/eslint-config/jest-testing-library'
+    '@remix-run/eslint-config/jest-testing-library',
   ],
   settings: {
     react: {
