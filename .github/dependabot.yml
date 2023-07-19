@@ -16,6 +16,9 @@ updates:
       remix:
         patterns:
           - "@remix-run/*"
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/*"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
