@@ -11,7 +11,6 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  plugins: ['react-hooks'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -19,6 +18,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
+    'plugin:react-hooks/recommended',
     '@remix-run/eslint-config',
     '@remix-run/eslint-config/node',
     '@remix-run/eslint-config/jest-testing-library',
