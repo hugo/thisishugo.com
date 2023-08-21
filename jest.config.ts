@@ -1,4 +1,8 @@
+import type {Config} from 'jest'
+import {defaultsESM} from 'ts-jest/presets'
+
 module.exports = {
+  preset: 'ts-jest',
   verbose: true,
   bail: 1,
   setupFilesAfterEnv: ['@testing-library/jest-dom'],
@@ -6,11 +10,9 @@ module.exports = {
     '\\.css$': 'identity-obj-proxy',
   },
   transform: {
-    '^.+\\.tsx$': 'ts-jest',
-    '^.+\\.ts$': 'ts-jest',
+    ...defaultsESM.transform,
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/tests/fileTransformer.js',
   },
   testEnvironment: 'jsdom',
-  testPathIgnorePatterns: ['/node_modules/'],
-}
+} satisfies Config
