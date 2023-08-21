@@ -1,7 +1,7 @@
 module.exports = {
   verbose: true,
   bail: 1,
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom'],
   moduleNameMapper: {
     '\\.css$': 'identity-obj-proxy',
   },
