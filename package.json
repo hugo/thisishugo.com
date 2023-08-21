@@ -15,7 +15,8 @@
     "postcss:build:watch": "npm run postcss:build -- --watch",
     "prettier": "prettier '**/*.{ts,tsx,js,json,css,md,html,yml}'",
     "prettier:write": "npm run prettier -- --write",
-    "prettier:check": "npm run prettier -- --check"
+    "prettier:check": "npm run prettier -- --check",
+    "typecheck": "tsc --noEmit"
   },
   "engines": {
     "node": "18",
