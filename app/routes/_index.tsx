@@ -1,8 +1,9 @@
-import type {MetaFunction} from '@remix-run/node'
+import type {V2_MetaFunction as MetaFunction} from '@remix-run/node'
 
-export let meta: MetaFunction = () => ({
-  title: 'Hugo Jobling',
-})
+export let meta: MetaFunction = ({matches}) => [
+  ...matches.flatMap(({meta = []}) => meta),
+  {title: 'Hugo Jobling'},
+]
 
 export default function Index() {
   return (

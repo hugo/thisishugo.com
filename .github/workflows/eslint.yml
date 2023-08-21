@@ -16,5 +16,4 @@ jobs:
         with:
           node-version: "18"
       - run: npm ci
-      - run: TAILWIND_MODE=build npm run postcss:build
       - run: npm run eslint

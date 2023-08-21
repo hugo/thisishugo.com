@@ -1,4 +1,7 @@
-import type {LinksFunction, MetaFunction} from '@remix-run/node'
+import type {
+  LinksFunction,
+  V2_MetaFunction as MetaFunction,
+} from '@remix-run/node'
 import {Links, LiveReload, Meta, Outlet, Scripts} from '@remix-run/react'
 
 import styles from './styles/index.css'
@@ -11,25 +14,25 @@ export let links: LinksFunction = () => {
   ]
 }
 
-export let meta: MetaFunction = () => ({
-  viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
-  description: 'Hugo Jobling. Trying my best.',
+export let meta: MetaFunction = () => [
+  {viewport: 'width=device-width, initial-scale=1, viewport-fit=cover'},
+  {description: 'Hugo Jobling. Trying my best.'},
 
-  'og:title': 'Hugo Jobling',
-  'og:site_name': 'Hugo Jobling',
-  'og:url': 'https://thisishugo.com',
-  'og:description': 'Hugo Jobling. Trying my best',
-  'og:profile': 'profile',
-  'og:image': '/images/hugo_large.jpg',
+  {name: 'og:title', content: 'Hugo Jobling'},
+  {name: 'og:site_name', content: 'Hugo Jobling'},
+  {name: 'og:url', content: 'https://thisishugo.com'},
+  {name: 'og:description', content: 'Hugo Jobling. Trying my best'},
+  {name: 'og:profile', content: 'profile'},
+  {name: 'og:image', content: '/images/hugo_large.jpg'},
 
-  'twitter:card': 'summary',
-  'twitter:site': '@dissimile',
-  'twitter:title': 'Hugo Jobling',
-  'twitter:description': 'Trying my best',
-  'twitter:image': '/images/hugo_large.jpg',
+  {name: 'twitter:card', content: 'summary'},
+  {name: 'twitter:site', content: '@dissimile'},
+  {name: 'twitter:title', content: 'Hugo Jobling'},
+  {name: 'twitter:description', content: 'Trying my best'},
+  {name: 'twitter:image', content: '/images/hugo_large.jpg'},
 
-  'theme-color': 'rgb(75, 106, 136)',
-})
+  {name: 'theme-color', content: 'rgb(75, 106, 136)'},
+]
 
 export default function App() {
   return (
