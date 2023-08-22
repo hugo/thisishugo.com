@@ -17,7 +17,8 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "noEmit": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
 }
