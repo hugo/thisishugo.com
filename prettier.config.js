@@ -1,8 +1,9 @@
-module.exports = {
+/** @type {import('prettier').Config} */
+export default {
   printWidth: 80,
   overrides: [
     {
-      files: ['*.js', '*.cjs', '*.ts', '*.tsx'],
+      files: ['*.js', '*.cjs', '*.mjs', '*.ts', '*.tsx'],
       options: {
         semi: false,
         singleQuote: true,

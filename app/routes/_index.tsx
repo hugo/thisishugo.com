@@ -1,4 +1,4 @@
-import type {V2_MetaFunction as MetaFunction} from '@remix-run/node'
+import type {MetaFunction} from '@remix-run/node'
 
 export let meta: MetaFunction = ({matches}) => [
   ...matches.flatMap(({meta = []}) => meta),

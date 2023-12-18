@@ -2,7 +2,7 @@ import {PassThrough} from 'stream'
 
 import {renderToPipeableStream} from 'react-dom/server'
 import {RemixServer} from '@remix-run/react'
-import {Response, redirect} from '@remix-run/node'
+import {createReadableStreamFromReadable, redirect} from '@remix-run/node'
 import type {EntryContext} from '@remix-run/node'
 
 let csp =
@@ -83,7 +83,7 @@ export default function handleRequest(
           responseHeaders.set('Content-Type', 'text/html')
 
           resolve(
-            new Response(body, {
+            new Response(createReadableStreamFromReadable(body), {
               status: didError ? 500 : responseStatusCode,
               headers,
             })
