@@ -1,7 +1,0 @@
-version: "2"
-tslint:
-  enabled: true
-exclude_patterns:
-  - "tailwind.config.js"
-  - "tests/**/*"
-  - "**/*.d.ts"
