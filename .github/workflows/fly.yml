@@ -15,5 +15,4 @@ jobs:
         with:
           args: "deploy --local-only"
         env:
-          DOCKER_BUILDKIT: "1"
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
