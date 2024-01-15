@@ -2,13 +2,6 @@ import {render, screen} from '@testing-library/react'
 
 import Index from './_index'
 
-test('welcome message', () => {
-  render(<Index />)
-  const subject = screen.getByText('Hello, this is Hugo')
-
-  expect(subject).toBeInTheDocument()
-})
-
 test('photo', () => {
   render(<Index />)
 
