@@ -9,6 +9,7 @@
     "build": "remix build",
     "start": "remix-serve build/index.js",
     "test": "jest",
+    "test:watch": "jest --watch",
     "eslint": "eslint . --ext ts,tsx",
     "eslint:fix": "npm run eslint -- --fix",
     "postcss:build": "postcss styles/index.css -o app/styles/index.css",
