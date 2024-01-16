@@ -44,7 +44,6 @@ COPY --from=deps-prod /deps/node_modules node_modules
 COPY --from=build /build/build build
 COPY --from=build /build/public public
 
-ENV PATH="$PATH:node_modules/.bin"
 ENV NODE_ENV="production"
 
 ENTRYPOINT [ "npm" ]
