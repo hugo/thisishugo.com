@@ -12,8 +12,12 @@ export let links: LinksFunction = () => {
 }
 
 export let meta: MetaFunction = () => [
-  {viewport: 'width=device-width, initial-scale=1, viewport-fit=cover'},
   {description: 'Hugo Jobling. Trying my best.'},
+
+  {
+    name: 'viewport',
+    content: 'width=device-width, initial-scale=1, viewport-fit=cover',
+  },
 
   {name: 'og:title', content: 'Hugo Jobling'},
   {name: 'og:site_name', content: 'Hugo Jobling'},
