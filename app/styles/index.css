@@ -4,37 +4,39 @@
 @tailwind screens;
 
 html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-  background-color: #4299e1;
   display: flex;
-  padding: env(safe-area-inset-top, 1rem) env(safe-area-inset-right, 1rem)
-    env(safe-area-inset-bottom, 1rem) env(safe-area-inset-left, 1rem);
+  height: 100vh;
+  background-color: #4299e1;
   background-image: url("/images/bg_720.jpg");
   background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
 }
 
+body {
+  flex: 1;
+  display: flex;
+  padding: env(safe-area-inset-top, 1rem) env(safe-area-inset-right, 1rem)
+    env(safe-area-inset-bottom, 1rem) env(safe-area-inset-left, 1rem);
+}
+
 @media (min-width: 720px) {
-  body {
+  html {
     background-image: url("/images/bg_1168.jpg");
   }
 }
 @media (min-width: 1168px) {
-  body {
+  html {
     background-image: url("/images/bg_1543.jpg");
   }
 }
 @media (min-width: 1543px) {
-  body {
+  html {
     background-image: url("/images/bg_1855.jpg");
   }
 }
 @media (min-width: 1855px) {
-  body {
+  html {
     background-image: url("/images/bg.jpg");
   }
 }
