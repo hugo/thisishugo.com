@@ -15,17 +15,23 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
+    'plugin:import/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
     'plugin:react-hooks/recommended',
-    '@remix-run/eslint-config',
-    '@remix-run/eslint-config/node',
-    '@remix-run/eslint-config/jest-testing-library',
   ],
   settings: {
     react: {
       version: 'detect',
+      formComponents: ['Form'],
+      linkComponents: [
+        {name: 'Link', linkAttribute: 'to'},
+        {name: 'NavLink', linkAttribute: 'to'},
+      ],
+      'import/resolver': {
+        typescript: {},
+      },
     },
   },
   ignorePatterns: ['node_modules/', 'build/', 'public/build/', '.cache/'],
@@ -60,7 +66,6 @@ module.exports = {
       parser: 'espree',
       files: [
         '.eslintrc.js',
-        'jest.config.js',
         'jest-platywright.config.js',
         'pm2.config.js',
         'prettier.config.js',
@@ -74,9 +79,30 @@ module.exports = {
       },
     },
     {
-      files: ['*.test.ts', '*.test.tsx'],
+      files: ['app/entry.client.tsx'],
+      env: {
+        browser: true,
+      },
+    },
+    {
+      files: ['app/entry.server.tsx'],
+      env: {
+        node: true,
+      },
+    },
+    {
+      files: ['app/routes/**', 'app/root.tsx'],
+      env: {
+        node: true,
+        browser: true,
+      },
+    },
+    {
+      plugins: ['jest'],
+      files: ['*.test.ts', '*.test.tsx', 'jest.config.ts'],
       env: {
         'jest/globals': true,
+        node: true,
       },
     },
     {
