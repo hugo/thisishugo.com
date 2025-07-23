@@ -10,7 +10,7 @@
     "start": "remix-serve build/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "eslint": "eslint . --ext ts,tsx",
+    "eslint": "eslint .",
     "eslint:fix": "npm run eslint -- --fix",
     "postcss:build": "postcss styles/index.css -o app/styles/index.css",
     "postcss:build:watch": "npm run postcss:build -- --watch",
@@ -34,8 +34,8 @@
     "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
     "@remix-run/dev": "^2.16.8",
-    "@remix-run/eslint-config": "^2.16.8",
     "@tailwindcss/postcss": "^4.1.11",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -43,10 +43,9 @@
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.37.0",
-    "@typescript-eslint/parser": "^8.31.0",
-    "eslint": "^8.57.1",
+    "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.1",
+    "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-prettier": "^5.2.3",
@@ -61,7 +60,8 @@
     "tailwindcss": "^4.1.11",
     "ts-jest": "^29.3.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
   },
   "repository": {
     "type": "git",
