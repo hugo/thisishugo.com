@@ -16,6 +16,12 @@ updates:
       remix:
         patterns:
           - "@remix-run/*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
