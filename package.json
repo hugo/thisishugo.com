@@ -20,8 +20,8 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": ">=20",
-    "npm": "10"
+    "node": ">=24",
+    "npm": ">=11"
   },
   "dependencies": {
     "@remix-run/node": "^2.16.8",
