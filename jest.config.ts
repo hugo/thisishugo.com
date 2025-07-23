@@ -1,5 +1,5 @@
 import type {Config} from 'jest'
-import {defaultsESM} from 'ts-jest/presets'
+import {defaultsESM} from 'ts-jest/presets/index.js'
 
 module.exports = {
   preset: 'ts-jest',
