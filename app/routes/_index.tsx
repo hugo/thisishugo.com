@@ -10,7 +10,7 @@ export let meta: MetaFunction = ({matches}) => [
 export default function Index() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center overflow-hidden">
-      <div className="overflow-y-auto rounded border-2 border-solid border-gray-700">
+      <div className="overflow-y-auto rounded-sm border-2 border-solid border-gray-700">
         <div className="bg-gray-100">
           <div className="flex flex-col items-center justify-around gap-2 p-2">
             <div className="flex flex-col items-center gap-1">
@@ -55,7 +55,7 @@ function Link({
   return (
     <a
       className={twMerge(
-        'block w-full rounded border-2 border-solid p-1 text-center text-xs transition-colors',
+        'block w-full rounded-sm border-2 border-solid p-1 text-center text-xs transition-colors',
         className
       )}
       {...props}

@@ -1,3 +1,5 @@
+// fuck off
+// @ts-expect-error workaround for module resolution issues
 import type {Config} from 'tailwindcss'
 
 export default {
