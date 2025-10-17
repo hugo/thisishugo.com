@@ -1,4 +1,4 @@
-FROM node:24-alpine AS deps-dev
+FROM node:25-alpine AS deps-dev
 
 WORKDIR /deps
 
@@ -8,7 +8,7 @@ RUN npm ci
 
 # ---
 
-FROM node:24-alpine AS deps-prod
+FROM node:25-alpine AS deps-prod
 
 WORKDIR /deps
 
@@ -20,7 +20,7 @@ RUN npm ci
 
 # ---
 
-FROM node:24-alpine AS build
+FROM node:25-alpine AS build
 
 ENV NODE_ENV=production
 
@@ -34,7 +34,7 @@ RUN npm run build
 
 # ---
 
-FROM node:24-alpine
+FROM node:25-alpine
 
 WORKDIR /app
 
