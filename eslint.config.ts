@@ -15,7 +15,7 @@ export default tseslint.config(
   tseslint.configs.strict,
   pluginImport.flatConfigs.recommended,
   pluginReact.configs.flat.recommended,
-  pluginReactHooks.configs['recommended-latest'],
+  pluginReactHooks.configs.flat.recommended,
   {
     settings: {
       react: {
@@ -51,8 +51,6 @@ export default tseslint.config(
           ],
         },
       ],
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
     },
   },
   {
