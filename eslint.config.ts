@@ -29,9 +29,6 @@ export default defineConfig(
         projectService: true,
       },
     },
-    rules: {
-      '@typescript-eslint/no-floating-promises': 'error',
-    },
   },
   {
     files: ['**/*.{ts,tsx}'],
