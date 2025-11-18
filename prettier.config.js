@@ -1,4 +1,4 @@
-/** @type {import('prettier').Config} */
+/** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions} */
 export default {
   plugins: ['prettier-plugin-tailwindcss'],
   printWidth: 80,
@@ -12,6 +12,10 @@ export default {
         bracketSpacing: false,
         arrowParens: 'always',
       },
+    },
+    {
+      files: '*.css',
+      options: {tailwindStylesheet: './app/styles/index.css'},
     },
     {
       files: '*.html',
