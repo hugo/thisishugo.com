@@ -48,6 +48,11 @@ export default defineConfig(
         {allowThrowingUnknown: true},
       ],
 
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {fixStyle: 'separate-type-imports', prefer: 'type-imports'},
+      ],
+
       'import/order': [
         'error',
         {

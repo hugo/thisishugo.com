@@ -1,4 +1,4 @@
-import {type LoaderFunction, type MetaFunction} from '@remix-run/node'
+import type {LoaderFunction, MetaFunction} from '@remix-run/node'
 
 export let meta: MetaFunction = () => [{title: 'Not Found'}]
 
