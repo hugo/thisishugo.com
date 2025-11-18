@@ -1,43 +1,59 @@
 import eslint from '@eslint/js'
-// https://github.com/import-js/eslint-plugin-import/issues/1810
-// eslint-disable-next-line import/no-unresolved
+import {defineConfig} from 'eslint/config'
 import tseslint from 'typescript-eslint'
 import pluginImport from 'eslint-plugin-import'
 import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
+import pluginJest from 'eslint-plugin-jest'
 
-export default tseslint.config(
+export default defineConfig(
   {
-    ignores: ['node_modules/', 'build/', 'public/build/', '.cache/'],
+    ignores: [
+      // ESLint will play merry havock if you try and lint its own config file
+      'eslint.config.ts',
+
+      'node_modules/',
+      'build/',
+      'public/build/',
+      '.cache/',
+    ],
   },
   eslint.configs.recommended,
-  tseslint.configs.recommended,
-  tseslint.configs.strict,
-  pluginImport.flatConfigs.recommended,
-  pluginReact.configs.flat.recommended,
-  pluginReactHooks.configs.flat.recommended,
   {
-    settings: {
-      react: {
-        version: 'detect',
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+    },
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
       },
+    },
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'error',
     },
   },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
+      tseslint.configs.strictTypeChecked,
       pluginImport.flatConfigs.recommended,
+      pluginImport.flatConfigs.react,
       pluginImport.flatConfigs.typescript,
+      pluginReact.configs.flat.recommended,
+      pluginReactHooks.configs.flat['recommended-latest'],
     ],
-  },
-  {
     rules: {
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/member-delimiter-style': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
+      'no-unused-vars': 'off',
       'prefer-const': 'off',
+
+      'react/react-in-jsx-scope': 'off',
+
+      '@typescript-eslint/prefer-promise-reject-errors': [
+        'error',
+        {allowThrowingUnknown: true},
+      ],
+
       'import/order': [
         'error',
         {
@@ -52,12 +68,21 @@ export default tseslint.config(
         },
       ],
     },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
   },
   {
-    files: ['**/*.tsx'],
+    files: ['**/*.js'],
+    extends: [tseslint.configs.disableTypeChecked],
     rules: {
-      'react/prop-types': 'off',
-      'react/react-in-jsx-scope': 'off',
+      'no-unused-vars': 'off',
     },
+  },
+  {
+    files: ['**/*.test.{ts,tsx}'],
+    extends: [pluginJest.configs['flat/recommended']],
   }
 )
