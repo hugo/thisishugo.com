@@ -20,9 +20,6 @@ export default defineConfig(
   },
   eslint.configs.recommended,
   {
-    plugins: {
-      '@typescript-eslint': tseslint.plugin,
-    },
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
