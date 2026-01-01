@@ -26,10 +26,5 @@
     ],
     "rootDirs": [".", "./.react-router/types"]
   },
-  "include": [
-    "env.d.ts",
-    ".react-router/types/**/*",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["env.d.ts", ".react-router/types/**/*", "**/*.ts", "**/*.tsx"]
 }

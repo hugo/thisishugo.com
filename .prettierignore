@@ -1,9 +1,0 @@
-package.json
-package-lock.json
-tsconfig.json
-.cache/
-coverage/
-server-build/
-public/build/
-public/css/index.css
-build/
