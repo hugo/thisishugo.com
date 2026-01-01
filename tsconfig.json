@@ -18,7 +18,12 @@
     "jsx": "react-jsx",
     "noEmit": true,
     "resolveJsonModule": true,
-    "types": ["@react-router/node", "vite/client", "@testing-library/jest-dom"],
+    "types": [
+      "@react-router/node",
+      "vite/client",
+      "vitest",
+      "@testing-library/jest-dom"
+    ],
     "rootDirs": [".", "./.react-router/types"]
   },
   "include": [

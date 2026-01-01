@@ -4,7 +4,7 @@ import tseslint from 'typescript-eslint'
 import pluginImport from 'eslint-plugin-import'
 import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
-import pluginJest from 'eslint-plugin-jest'
+import pluginVitest from 'eslint-plugin-vitest'
 
 export default defineConfig(
   {
@@ -93,6 +93,11 @@ export default defineConfig(
   },
   {
     files: ['**/*.test.{ts,tsx}'],
-    extends: [pluginJest.configs['flat/recommended']],
+    extends: [pluginVitest.configs.recommended],
+    // Tests: relax strict type-related rules to match typical test ergonomics.
+    rules: {
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+    },
   }
 )
