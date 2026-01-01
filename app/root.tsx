@@ -82,23 +82,6 @@ export let middleware: MiddlewareFunction[] = [
       return redirect(url.href, {status: 301})
     }
   },
-  ({request}) => {
-    if (process.env.NODE_ENV !== 'production') {
-      return
-    }
-
-    let url = new URL(request.url)
-    let isHttps = [
-      url.protocol === 'https',
-      request.headers.get('X-Forwarded-Proto') === 'https',
-    ].some(Boolean)
-
-    if (!isHttps) {
-      url.protocol = 'https'
-
-      return redirect(url.href, {status: 301})
-    }
-  },
 ]
 
 export default function App() {

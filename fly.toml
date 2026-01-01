@@ -1,25 +1,27 @@
 app = "thisishugo"
 
+primary_region = "lhr"
+
 [env]
   HOST = "0.0.0.0"
   PORT = "3000"
 
 [[services]]
+
+[http_service]
   internal_port = 3000
-  protocol = "tcp"
+  force_https = true
+  auto_start_machines = true
+  auto_stop_machines = "stop"
+  min_machines_running = 1
 
-  [services.concurrency]
-    hard_limit = 10
+  [http_service.concurrency]
+    type = "requests"
     soft_limit = 5
+    hard_limit = 10
 
-  [[services.ports]]
-    handlers = ["http"]
-    port = "80"
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = "443"
-
-  [[services.tcp_checks]]
-    interval = 10000
-    timeout = 2000
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    method = "GET"
+    path = "/"
