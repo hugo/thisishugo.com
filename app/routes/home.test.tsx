@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react'
 
-import Index from './_index'
+import Home from './home'
 
 test('photo', () => {
-  render(<Index />)
+  render(<Home />)
 
   const subject = screen.getByAltText('profile of hugo')
 
@@ -11,7 +11,7 @@ test('photo', () => {
 })
 
 test('email', () => {
-  render(<Index />)
+  render(<Home />)
 
   const email = 'hello@thisishugo.com'
   const subject = screen.getByText(email)

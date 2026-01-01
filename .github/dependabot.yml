@@ -13,9 +13,9 @@ updates:
       time: "07:00"
       timezone: "Europe/London"
     groups:
-      remix:
+      react-router:
         patterns:
-          - "@remix-run/*"
+          - "@react-router/*"
       react:
         patterns:
           - "react"

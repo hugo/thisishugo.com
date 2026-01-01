@@ -1,4 +1,4 @@
-import type {LoaderFunction, MetaFunction} from '@remix-run/node'
+import type {LoaderFunction, MetaFunction} from 'react-router'
 
 export let meta: MetaFunction = () => [{title: 'Not Found'}]
 
@@ -6,7 +6,7 @@ export let loader: LoaderFunction = () => {
   return new Response(null, {status: 404})
 }
 
-export default function FourZeroFour() {
+export default function NotFound() {
   return (
     <div className="flex flex-1 items-center justify-center">
       <div className="rounded-lg bg-white px-20 py-10">

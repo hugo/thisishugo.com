@@ -7,8 +7,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "module": "commonjs",
+    "moduleResolution": "bundler",
+    "module": "es2020",
     "target": "es2020",
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,7 +18,13 @@
     "jsx": "react-jsx",
     "noEmit": true,
     "resolveJsonModule": true,
-    "types": ["@testing-library/jest-dom"]
+    "types": ["@react-router/node", "vite/client", "@testing-library/jest-dom"],
+    "rootDirs": [".", "./.react-router/types"]
   },
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "env.d.ts",
+    ".react-router/types/**/*",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

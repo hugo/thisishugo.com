@@ -1,9 +1,8 @@
 // fuck off
-// @ts-expect-error workaround for module resolution issues
 import type {Config} from 'tailwindcss'
 
 export default {
-  content: ['./app/**/*.ts', './app/**/*.tsx'],
+  content: ['./app/**/*.{ts,tsx,jsx,html}', './public/**/*.html'],
   plugins: [],
   theme: {
     extend: {

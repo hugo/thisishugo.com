@@ -16,6 +16,7 @@ export default defineConfig(
       'build/',
       'public/build/',
       '.cache/',
+      '.react-router/',
     ],
   },
   eslint.configs.recommended,
@@ -70,6 +71,16 @@ export default defineConfig(
     settings: {
       react: {
         version: 'detect',
+      },
+
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.tsx'],
+      },
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.mts', '.css'],
+        },
+        typescript: {},
       },
     },
   },
