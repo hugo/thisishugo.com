@@ -1,4 +1,4 @@
-name: Jest
+name: Tests (Vitest)
 
 on:
   pull_request_target:
