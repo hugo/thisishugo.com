@@ -3,7 +3,7 @@ import type {AnchorHTMLAttributes} from 'react'
 import {twMerge} from 'tailwind-merge'
 
 export let meta: MetaFunction = ({matches}) => [
-  ...matches.flatMap(({meta = []}) => meta),
+  ...matches.flatMap(({meta}) => meta),
   {title: 'Hugo Jobling'},
 ]
 
