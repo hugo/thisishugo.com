@@ -12,7 +12,7 @@
     "test:watch": "vitest",
     "eslint": "eslint .",
     "eslint:fix": "npm run eslint -- --fix",
-    "prettier": "prettier '**/*.{ts,tsx,js,json,css,md,html,yml}'",
+    "prettier": "prettier .",
     "prettier:write": "npm run prettier -- --write",
     "prettier:check": "npm run prettier -- --check",
     "typecheck": "react-router typegen && tsc"
@@ -31,6 +31,7 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.0",
     "@react-router/dev": "^7.0.0",
     "@tailwindcss/vite": "^4.1.18",

@@ -1,28 +1,25 @@
+import {fileURLToPath} from 'node:url'
+
 import eslint from '@eslint/js'
 import {defineConfig} from 'eslint/config'
-import tseslint from 'typescript-eslint'
+import {
+  parser as tslintParser,
+  configs as tseslintConfigs,
+} from 'typescript-eslint'
 import pluginImport from 'eslint-plugin-import'
 import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import pluginVitest from '@vitest/eslint-plugin'
+import {includeIgnoreFile} from '@eslint/compat'
+
+const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
 
 export default defineConfig(
-  {
-    ignores: [
-      // ESLint will play merry havock if you try and lint its own config file
-      'eslint.config.ts',
-
-      'node_modules/',
-      'build/',
-      'public/build/',
-      '.cache/',
-      '.react-router/',
-    ],
-  },
+  includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
   eslint.configs.recommended,
   {
     languageOptions: {
-      parser: tseslint.parser,
+      parser: tslintParser,
       parserOptions: {
         projectService: true,
       },
@@ -31,7 +28,7 @@ export default defineConfig(
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
-      tseslint.configs.strictTypeChecked,
+      tseslintConfigs.strictTypeChecked,
       pluginImport.flatConfigs.recommended,
       pluginImport.flatConfigs.react,
       pluginImport.flatConfigs.typescript,
@@ -86,7 +83,7 @@ export default defineConfig(
   },
   {
     files: ['**/*.js'],
-    extends: [tseslint.configs.disableTypeChecked],
+    extends: [tseslintConfigs.disableTypeChecked],
     rules: {
       'no-unused-vars': 'off',
     },
