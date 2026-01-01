@@ -1,4 +1,4 @@
-import type {MetaFunction} from '@remix-run/node'
+import type {MetaFunction} from 'react-router'
 import type {AnchorHTMLAttributes} from 'react'
 import {twMerge} from 'tailwind-merge'
 
@@ -7,7 +7,7 @@ export let meta: MetaFunction = ({matches}) => [
   {title: 'Hugo Jobling'},
 ]
 
-export default function Index() {
+export default function Home() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center overflow-hidden">
       <div className="overflow-y-auto rounded-sm border-2 border-solid border-gray-700">
