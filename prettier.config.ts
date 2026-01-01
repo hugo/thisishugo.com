@@ -1,7 +1,10 @@
-/** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions} */
+import type {Config} from 'prettier'
+import type {PluginOptions as TailwindPluginOptions} from 'prettier-plugin-tailwindcss'
+
 export default {
   plugins: ['prettier-plugin-tailwindcss'],
   printWidth: 80,
+  tailwindStylesheet: './app/styles/index.css',
   overrides: [
     {
       files: ['*.js', '*.cjs', '*.mjs', '*.ts', '*.tsx'],
@@ -12,10 +15,6 @@ export default {
         bracketSpacing: false,
         arrowParens: 'always',
       },
-    },
-    {
-      files: '*.css',
-      options: {tailwindStylesheet: './app/styles/index.css'},
     },
     {
       files: '*.html',
@@ -30,4 +29,4 @@ export default {
       },
     },
   ],
-}
+} satisfies Config & TailwindPluginOptions
