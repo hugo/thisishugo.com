@@ -15,7 +15,8 @@
     "prettier": "prettier .",
     "prettier:write": "npm run prettier -- --write",
     "prettier:check": "npm run prettier -- --check",
-    "typecheck": "react-router typegen && tsc"
+    "pretypecheck": "react-router typegen",
+    "typecheck": "tsc"
   },
   "engines": {
     "node": ">=24",
