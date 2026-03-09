@@ -37,6 +37,7 @@ export let headers: HeadersFunction = () => {
     'max-age=63072000; includeSubDomains; preload'
   )
   headers.set('Content-Security-Policy', csp)
+  headers.set('X-Clacks-Overhead', 'GNU Terry Pratchett')
 
   return headers
 }
