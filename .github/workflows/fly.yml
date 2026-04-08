@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: docker/setup-buildx-action@v4
-      - uses: superfly/flyctl-actions@1.5
+      - uses: superfly/flyctl-actions@1.6
         with:
           args: "deploy --local-only"
         env:
