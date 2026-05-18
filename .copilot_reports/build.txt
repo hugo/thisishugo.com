@@ -1,0 +1,25 @@
+vite v7.3.2 building client environment for production...
+transforming...
+✓ 45 modules transformed.
+rendering chunks...
+computing gzip size...
+build/client/.vite/manifest.json                  1.48 kB │ gzip:  0.39 kB
+build/client/assets/index-BGTXH2IO.css            7.12 kB │ gzip:  2.32 kB
+build/client/assets/404-BKpZIoTL.js               0.33 kB │ gzip:  0.25 kB
+build/client/assets/root-MHlkD5hJ.js              1.73 kB │ gzip:  0.74 kB
+build/client/assets/home-O_-wWvH9.js             28.52 kB │ gzip:  9.04 kB
+build/client/assets/chunk-4N6VE7H7-C2p4WouN.js  124.77 kB │ gzip: 42.04 kB
+build/client/assets/entry.client-Dm7C3CVa.js    190.51 kB │ gzip: 60.05 kB
+✓ built in 528ms
+vite v7.3.2 building ssr environment for production...
+transforming...
+✓ 8 modules transformed.
+rendering chunks...
+build/server/.vite/manifest.json         0.40 kB
+build/server/assets/index-BGTXH2IO.css   7.12 kB
+build/server/index.js                   11.85 kB
+
+✓ 1 asset cleaned from React Router server build.
+build/client/assets/index-BGTXH2IO.css
+
+✓ built in 40ms

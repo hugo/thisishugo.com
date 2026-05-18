@@ -1,0 +1,8 @@
+Started: Mon 18 May 2026 19:01:46 BST
+Branch: dependabot/npm_and_yarn/eslint/compat-2.1.0
+Pushed changes: 1
+ESLint initial fail: 1
+Prettier initial fail: 0
+Build failed: 0
+Tests failed: 0
+See .copilot_reports for logs.
