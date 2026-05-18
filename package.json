@@ -33,7 +33,7 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.5",
+    "@eslint/compat": "^2.1.0",
     "@eslint/js": "^9.39.4",
     "@react-router/dev": "^7.15.1",
     "@tailwindcss/vite": "^4.3.0",
