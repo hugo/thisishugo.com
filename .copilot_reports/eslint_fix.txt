@@ -1,0 +1,7 @@
+
+/Users/hugo/Sources/thisishugo.com/eslint.config.ts
+  18:3  error  `includeIgnoreFile` is deprecated. Use the `includeIgnoreFile()` function exported by
+`@eslint/config-helpers` instead (also available at `eslint/config`)  @typescript-eslint/no-deprecated
+
+✖ 1 problem (1 error, 0 warnings)
+

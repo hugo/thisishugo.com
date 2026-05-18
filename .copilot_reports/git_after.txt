@@ -1,0 +1,2 @@
+?? .copilot_reports/
+?? tsc_output.txt

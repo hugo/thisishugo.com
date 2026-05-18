@@ -1,0 +1,12 @@
+Started at Mon 18 May 2026 19:01:34 BST
+Switched to a new branch 'dependabot/npm_and_yarn/eslint/compat-2.1.0'
+branch 'dependabot/npm_and_yarn/eslint/compat-2.1.0' set up to track 'origin/dependabot/npm_and_yarn/eslint/compat-2.1.0'.
+Checked out PR 3002
+Running npm ci...
+Running npm lint (if available)
+npm run lint failed or not present (see .copilot_reports/eslint_check.txt)
+Running prettier check
+prettier --check ok
+Running eslint --fix (may be no-op)
+Running prettier --write
+Staged changes detected; creating commit
