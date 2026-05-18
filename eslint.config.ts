@@ -10,6 +10,7 @@ import pluginImport from 'eslint-plugin-import'
 import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import pluginVitest from '@vitest/eslint-plugin'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import {includeIgnoreFile} from '@eslint/config-helpers'
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
@@ -96,5 +97,6 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
     },
-  }
+  },
+  eslintPluginPrettierRecommended
 )
