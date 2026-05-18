@@ -10,7 +10,7 @@ import pluginImport from 'eslint-plugin-import'
 import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import pluginVitest from '@vitest/eslint-plugin'
-import {includeIgnoreFile} from '@eslint/compat'
+import {includeIgnoreFile} from '@eslint/config-helpers'
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
 
