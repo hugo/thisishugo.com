@@ -36,7 +36,7 @@
     "@eslint/config-helpers": "^0.6.0",
     "@eslint/js": "^9.39.4",
     "@react-router/dev": "^7.17.0",
-    "@tailwindcss/vite": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^25.9.3",
