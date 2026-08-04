@@ -15,6 +15,7 @@ updates:
     groups:
       react-router:
         patterns:
+          - "react-router"
           - "@react-router/*"
       react:
         patterns:
