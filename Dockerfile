@@ -2,7 +2,7 @@ FROM node:26-alpine AS deps-dev
 
 WORKDIR /deps
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
 
 RUN npm ci
 
@@ -12,7 +12,7 @@ FROM node:26-alpine AS deps-prod
 
 WORKDIR /deps
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
 
 ENV NODE_ENV=production
 
