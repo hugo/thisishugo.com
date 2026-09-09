@@ -6,7 +6,9 @@ import type {prettierOptionsDefinitions} from 'prettier-plugin-toml'
 // Why this isn't already there beats me.
 type TomlPrettierOptionsDefinitions = typeof prettierOptionsDefinitions
 export type TomlPluginOptions = {
-  [K in keyof TomlPrettierOptionsDefinitions]?: TomlPrettierOptionsDefinitions[K]['type'] extends 'boolean'
+  [
+    K in keyof TomlPrettierOptionsDefinitions
+  ]?: TomlPrettierOptionsDefinitions[K]['type'] extends 'boolean'
     ? boolean
     : TomlPrettierOptionsDefinitions[K]['type'] extends 'int'
       ? number
