@@ -2,6 +2,8 @@ import {defineConfig} from 'oxfmt'
 
 export default defineConfig({
   printWidth: 80,
+  endOfLine: 'lf',
+  insertFinalNewline: true,
   sortImports: {
     groups: [
       ['type-builtin', 'value-builtin'],
