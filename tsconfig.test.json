@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["tests/**/*", "app/**/*"],
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["DOM", "DOM.Iterable", "ES2025"],
+    "types": [
+      "node",
+      "vitest",
+      "vite/client",
+      "@testing-library/jest-dom/vitest"
+    ],
+    "jsx": "react-jsx",
+    "tsBuildInfoFile": "node_modules/.cache/tsc/test.tsbuildinfo"
+  }
+}

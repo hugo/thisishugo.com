@@ -8,26 +8,25 @@ import {Links, Meta, Outlet, redirect, Scripts} from 'react-router'
 
 import styles from './styles/index.css?url'
 
-let csp =
-  process.env.NODE_ENV === 'production'
-    ? [
-        "default-src 'none'",
-        "script-src 'self' 'unsafe-inline' https:",
-        "script-src-elem 'self' 'unsafe-inline' https:",
-        "style-src 'self'",
-        "style-src-elem 'self'",
-        "img-src 'self' data:",
-      ].join('; ')
-    : [
-        "default-src 'none'",
-        "script-src 'unsafe-inline' http://localhost:3000",
-        "script-src-elem 'unsafe-inline' http://localhost:3000",
-        "style-src 'self'",
-        "style-src-elem 'self' http://localhost:3000",
-        "img-src 'self' data:",
-        // Vite WebSocket for HMR
-        'connect-src ws://localhost:3000',
-      ].join('; ')
+let csp = import.meta.env.PROD
+  ? [
+      "default-src 'none'",
+      "script-src 'self' 'unsafe-inline' https:",
+      "script-src-elem 'self' 'unsafe-inline' https:",
+      "style-src 'self'",
+      "style-src-elem 'self'",
+      "img-src 'self' data:",
+    ].join('; ')
+  : [
+      "default-src 'none'",
+      "script-src 'unsafe-inline' http://localhost:3000",
+      "script-src-elem 'unsafe-inline' http://localhost:3000",
+      "style-src 'self'",
+      "style-src-elem 'self' http://localhost:3000",
+      "img-src 'self' data:",
+      // Vite WebSocket for HMR
+      'connect-src ws://localhost:3000',
+    ].join('; ')
 
 export let headers: HeadersFunction = () => {
   const responseHeaders = new Headers()
@@ -77,11 +76,13 @@ export let meta: MetaFunction = () => [
 export let middleware: MiddlewareFunction[] = [
   ({request}) => {
     let url = new URL(request.url)
-    if (url.host === 'www.thisishugo.com') {
-      url.host = 'thisishugo.com'
-
-      return redirect(url.href, {status: 301})
+    if (url.host !== 'www.thisishugo.com') {
+      return undefined
     }
+
+    url.host = 'thisishugo.com'
+
+    return redirect(url.href, {status: 301})
   },
 ]
 

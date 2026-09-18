@@ -11,7 +11,7 @@ export default defineConfig({
     target: 'es2025',
   },
   server: {
-    port: Number(process.env.PORT ?? 3000),
+    port: Number(process.env['PORT'] ?? 3000),
     allowedHosts: ['thisishugo.com', 'www.thisishugo.com'],
   },
 })

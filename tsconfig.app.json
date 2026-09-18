@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [".react-router/types/**/*", "app/**/*"],
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["DOM", "DOM.Iterable", "ES2025"],
+    "types": ["vite/client"],
+    "jsx": "react-jsx",
+    "rootDirs": [".", "./.react-router/types"],
+    "tsBuildInfoFile": "node_modules/.cache/tsc/app.tsbuildinfo"
+  },
+  "exclude": ["app/**/*.test.ts", "app/**/*.test.tsx"]
+}
