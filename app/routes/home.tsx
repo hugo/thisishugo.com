@@ -1,9 +1,9 @@
-import type {MetaFunction} from 'react-router'
 import type {AnchorHTMLAttributes} from 'react'
+import type {MetaFunction} from 'react-router'
 import {twMerge} from 'tailwind-merge'
 
 export let meta: MetaFunction = ({matches}) => [
-  ...matches.flatMap(({meta}) => meta),
+  ...matches.flatMap(({meta: childMeta}) => childMeta),
   {title: 'Hugo Jobling'},
 ]
 

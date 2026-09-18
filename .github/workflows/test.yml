@@ -1,11 +1,11 @@
-name: Prettier
+name: Test
 
 on:
   pull_request_target:
     branches: [main]
 
 jobs:
-  prettier:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,4 +16,4 @@ jobs:
         with:
           node-version: "24"
       - run: npm ci
-      - run: npm run prettier:check
+      - run: npm test

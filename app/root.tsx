@@ -30,16 +30,16 @@ let csp =
       ].join('; ')
 
 export let headers: HeadersFunction = () => {
-  const headers = new Headers()
-  headers.set('X-Powered-By', 'gremlins')
-  headers.set(
+  const responseHeaders = new Headers()
+  responseHeaders.set('X-Powered-By', 'gremlins')
+  responseHeaders.set(
     'Strict-Transport-Security',
     'max-age=63072000; includeSubDomains; preload'
   )
-  headers.set('Content-Security-Policy', csp)
-  headers.set('X-Clacks-Overhead', 'GNU Terry Pratchett')
+  responseHeaders.set('Content-Security-Policy', csp)
+  responseHeaders.set('X-Clacks-Overhead', 'GNU Terry Pratchett')
 
-  return headers
+  return responseHeaders
 }
 
 export let links: LinksFunction = () => {
