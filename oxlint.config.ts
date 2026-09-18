@@ -10,6 +10,7 @@ export default defineConfig({
   },
   options: {
     typeAware: true,
+    typeCheck: true,
   },
   env: {
     // Language floor for all files; per-runtime envs are scoped in overrides.
@@ -44,15 +45,10 @@ export default defineConfig({
   overrides: [
     {
       // Universal route/root modules: render on the server, hydrate in the browser,
-      // so browser globals must cover them. `process` is the lone Node global that's
-      // safe (Vite statically replaces process.env on the client; it's real on the
-      // server), so it's the only Node global declared here.
+      // so browser globals must cover them.
       files: ['app/**/*.{ts,tsx}'],
       env: {
         browser: true,
-      },
-      globals: {
-        process: 'readonly',
       },
     },
     {

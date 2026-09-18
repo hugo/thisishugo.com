@@ -26,12 +26,11 @@
     "start": "react-router-serve build/server/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
+    "precheck": "react-router typegen",
+    "check": "oxlint",
+    "check:fix": "oxlint --fix",
     "format": "oxfmt",
-    "format:check": "oxfmt --check",
-    "pretypecheck": "react-router typegen",
-    "typecheck": "tsc"
+    "format:check": "oxfmt --check"
   },
   "dependencies": {
     "@react-router/serve": "^8.3.1",
