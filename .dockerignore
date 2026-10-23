@@ -1,0 +1,10 @@
+node_modules
+dist
+.vitest
+assets
+**/*.test.ts
+.git
+.github
+.vscode
+.env*
+.DS_Store

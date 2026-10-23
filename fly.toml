@@ -1,12 +1,8 @@
 app = "thisishugo"
-
 primary_region = "lhr"
 
 [env]
-HOST = "0.0.0.0"
-PORT = "3000"
-
-[[services]]
+ORIGIN = "https://thisishugo.com"
 
 [http_service]
 internal_port = 3000

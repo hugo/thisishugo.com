@@ -13,17 +13,17 @@ updates:
       time: "07:00"
       timezone: "Europe/London"
     groups:
-      react-router:
+      effect:
         patterns:
-          - "react-router"
-          - "@react-router/*"
-      react:
+          - "effect"
+          - "@effect/*"
+      foldkit:
         patterns:
-          - "react"
-          - "react-dom"
-          - "@types/react"
-          - "@types/react-dom"
+          - "foldkit"
+          - "@foldkit/*"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
+      time: "07:00"
+      timezone: "Europe/London"

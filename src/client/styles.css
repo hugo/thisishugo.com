@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* One theme, from Figma's Forest Green (#2E6F40) and Orchid Pink (#F2BDCD). The
+ * background is Forest Green's darkest shade, the foreground the warm off-white
+ * of the lit rock in the photograph, and muted a desaturated Forest Green only as
+ * light as WCAG AA requires. */
+@theme {
+  --color-bg: #0a190e;
+  --color-fg: #e6e3dd;
+  --color-muted: #76867b;
+  --color-accent: #f2bdcd;
+  --font-sans: "Source Sans 3", system-ui, sans-serif;
+  --font-mono: "Source Code Pro", ui-monospace, monospace;
+  --breakpoint-md: 48rem;
+  --breakpoint-xl: 80rem;
+  --spacing-safe-top: max(2rem, env(safe-area-inset-top));
+  --spacing-safe-right: max(1.75rem, env(safe-area-inset-right));
+  --spacing-safe-bottom: max(2rem, env(safe-area-inset-bottom));
+  --spacing-safe-left: max(1.75rem, env(safe-area-inset-left));
+}
+
+/* Vendored, unsubsetted variable faces. */
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("/fonts/SourceSans3VF-Upright.otf.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("/fonts/SourceSans3VF-Italic.otf.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodeVF-Upright.otf.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodeVF-Italic.otf.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: block;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--color-accent);
+  }
+
+  body {
+    color: var(--color-fg);
+  }
+}

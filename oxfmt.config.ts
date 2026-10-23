@@ -2,8 +2,6 @@ import {defineConfig} from 'oxfmt'
 
 export default defineConfig({
   printWidth: 80,
-  endOfLine: 'lf',
-  insertFinalNewline: true,
   sortImports: {
     groups: [
       ['type-builtin', 'value-builtin'],
@@ -20,9 +18,7 @@ export default defineConfig({
       'unknown',
     ],
   },
-  sortTailwindcss: {
-    stylesheet: './app/styles/index.css',
-  },
+  sortTailwindcss: {stylesheet: './src/client/styles.css'},
   overrides: [
     {
       // Scoped to JS/TS; YAML, CSS, JSON, TOML etc. keep oxfmt defaults.

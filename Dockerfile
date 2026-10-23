@@ -1,51 +1,23 @@
-FROM node:26-alpine AS deps-dev
-
+FROM node:26-alpine AS deps
 WORKDIR /deps
-
-COPY package.json package-lock.json .npmrc ./
-
-RUN npm ci
-
-# ---
-
-FROM node:26-alpine AS deps-prod
-
-WORKDIR /deps
-
-COPY package.json package-lock.json .npmrc ./
-
-ENV NODE_ENV=production
-
-RUN npm ci
-
-# ---
+COPY package.json package-lock.json ./
+COPY patches ./patches
+RUN npm ci --omit=dev
 
 FROM node:26-alpine AS build
-
-ENV NODE_ENV=production
-
 WORKDIR /build
-
-COPY --from=deps-dev /deps/node_modules node_modules
-
+COPY package.json package-lock.json ./
+COPY patches ./patches
+RUN npm ci
 COPY . .
-
 RUN npm run build
 
-# ---
-
 FROM node:26-alpine
-
 WORKDIR /app
-
-COPY package.json package-lock.json ./
-
-COPY --from=deps-prod /deps/node_modules node_modules
-COPY --from=build /build/build build
-COPY --from=build /build/public public
-
-ENV NODE_ENV="production"
-
-ENTRYPOINT [ "npm" ]
-
-CMD [ "run", "start" ]
+COPY package.json ./
+COPY --from=deps /deps/node_modules node_modules
+COPY src ./src
+COPY --from=build /build/dist dist
+# NOTE: node runs directly so SIGTERM reaches the server's scope finalizers.
+ENTRYPOINT ["node", "src/server/main.prod.ts"]
+USER node

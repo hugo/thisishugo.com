@@ -1,79 +1,82 @@
+import foldkitPlugin from '@foldkit/oxlint-plugin'
 import {defineConfig} from 'oxlint'
 
 export default defineConfig({
-  plugins: ['eslint', 'typescript', 'oxc', 'import', 'react', 'vitest'],
-  categories: {
-    correctness: 'error',
-    suspicious: 'error',
-    pedantic: 'error',
-    nursery: 'error',
-  },
-  options: {
-    typeAware: true,
-    typeCheck: true,
-  },
-  env: {
-    // Language floor for all files; per-runtime envs are scoped in overrides.
-    es2025: true,
-  },
+  jsPlugins: ['@foldkit/oxlint-plugin'],
+  plugins: ['eslint', 'typescript', 'oxc', 'import', 'vitest'],
+  categories: {correctness: 'error', suspicious: 'error', pedantic: 'error'},
+  options: {typeAware: true, typeCheck: true},
+  env: {es2025: true},
   rules: {
-    // tsc (noUnusedLocals/noUnusedParameters) and type-aware rules handle these.
-    'eslint/no-unused-vars': 'off',
-    'eslint/prefer-const': 'off',
-
-    // Not enabled by any default category, so opt in.
-    'eslint/no-undef': 'error',
-
-    'import/no-unassigned-import': 'off',
-    'typescript/consistent-return': 'off',
-    'typescript/strict-boolean-expressions': 'off',
-    // False positives on React callback props.
+    ...foldkitPlugin.configs.recommended.rules,
+    // Correctness rules outside the enabled categories.
+    'eslint/no-ternary': 'error',
+    'typescript/no-explicit-any': 'error',
+    'typescript/no-non-null-assertion': 'error',
+    'typescript/no-unnecessary-condition': 'error',
+    // Taste rather than correctness.
+    'eslint/max-classes-per-file': 'off',
+    'eslint/max-depth': 'off',
+    'eslint/max-lines': 'off',
+    'eslint/max-lines-per-function': 'off',
+    'eslint/max-nested-callbacks': 'off',
+    'eslint/no-else-return': 'off',
+    'eslint/no-inline-comments': 'off',
+    'eslint/no-lonely-if': 'off',
+    'eslint/no-negated-condition': 'off',
+    'eslint/sort-vars': 'off',
+    'import/max-dependencies': 'off',
+    'oxc/branches-sharing-code': 'off',
     'typescript/prefer-readonly-parameter-types': 'off',
-
-    'react/react-in-jsx-scope': 'off',
-
-    'typescript/prefer-promise-reject-errors': [
-      'error',
-      {allowThrowingUnknown: true},
-    ],
-
-    'typescript/consistent-type-imports': [
-      'error',
-      {fixStyle: 'separate-type-imports', prefer: 'type-imports'},
-    ],
+    // Schema exports a value and a type under one name: `Model`, `Message`.
+    'eslint/no-redeclare': 'off',
+    // Stylesheets are imported for their side effect.
+    'import/no-unassigned-import': ['error', {allow: ['**/*.css']}],
   },
   overrides: [
+    ...foldkitPlugin.configs.recommended.overrides,
     {
-      // Universal route/root modules: render on the server, hydrate in the browser,
-      // so browser globals must cover them.
-      files: ['app/**/*.{ts,tsx}'],
-      env: {
-        browser: true,
-      },
-    },
-    {
-      // Node-only files: build/tooling config and the vitest test suite runner.
-      files: [
-        'vite.config.ts',
-        'oxlint.config.ts',
-        'oxfmt.config.ts',
-        'tests/**/*.{ts,tsx}',
-      ],
-      env: {
-        node: true,
-      },
-    },
-    {
-      // Tests run in vitest (Node) against a jsdom DOM, so both envs apply.
-      files: ['**/*.test.{ts,tsx}'],
-      env: {
-        browser: true,
-        node: true,
-      },
+      files: ['src/client/**/*.ts'],
+      env: {browser: true},
       rules: {
-        'typescript/no-unsafe-call': 'off',
-        'typescript/no-unsafe-member-access': 'off',
+        'eslint/no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['**/server/**', 'node:*'],
+                message: 'Client code never imports server or Node modules.',
+              },
+            ],
+          },
+        ],
       },
     },
+    {
+      files: ['src/server/**/*.ts'],
+      env: {node: true},
+      rules: {
+        'eslint/no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: [
+                  '**/client/**',
+                  '!**/client/main.ts',
+                  '!**/client/view.ts',
+                  '!**/client/route.ts',
+                  '!**/client/site.ts',
+                  '!**/client/photo.ts',
+                ],
+                message:
+                  'Server code imports only the client init, view, routes, site identity and photo markup.',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {files: ['*.ts', 'scripts/**/*.ts'], env: {node: true}},
   ],
 })

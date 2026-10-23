@@ -1,8 +1,5 @@
-**/node_modules/
-
-/.cache/
-/.react-router/
-/build
-/public/build
-*.tsbuildinfo
-
+node_modules/
+dist/
+.vitest/
+.env*
+.DS_Store
