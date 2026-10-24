@@ -1,7 +1,12 @@
-import {IncomingMessage, ServerResponse} from 'node:http'
+import {
+  IncomingMessage,
+  ServerResponse,
+  createServer as createHttpServer,
+  type Server,
+} from 'node:http'
 
-import {NodeHttpServerRequest} from '@effect/platform-node'
-import {Context, Effect, Layer, Schema} from 'effect'
+import {NodeHttpServer, NodeHttpServerRequest} from '@effect/platform-node'
+import {Context, Effect, Layer, Match, Schema} from 'effect'
 import {HttpRouter, HttpServerRequest, HttpServerResponse} from 'effect/http'
 import {type ViteDevServer, createServer} from 'vite'
 
@@ -12,14 +17,41 @@ class DevelopmentServerError extends Schema.TaggedError<DevelopmentServerError>(
   {cause: Schema.Defect()}
 ) {}
 
+// NOTE: Effect's HttpServer answers every upgrade request, so a socket shared with Vite gets two handshakes and corrupt frames. HMR gets its own server on a free port, never served by Effect, which also keeps parallel dev servers from colliding.
+class Hmr extends Context.Service<Hmr, {port: number; server: Server}>()(
+  'thisishugo/Hmr'
+) {
+  static readonly layer = Layer.effect(
+    Hmr,
+    Effect.gen(function* () {
+      const server = createHttpServer()
+      const {address} = yield* NodeHttpServer.make(() => server, {port: 0})
+      const withPort = ({port}: {port: number}) =>
+        Effect.succeed({port, server})
+      return yield* Match.valueTags(address, {
+        InetAddressV4: withPort,
+        InetAddressV6: withPort,
+        UnixPathAddress: () =>
+          Effect.fail(new DevelopmentServerError({cause: 'HMR has no port'})),
+      })
+    })
+  )
+}
+
 class Vite extends Context.Service<Vite, ViteDevServer>()('thisishugo/Vite') {
   static readonly layer = Layer.effect(
     Vite,
     Effect.acquireRelease(
-      Effect.tryPromise({
-        try: () =>
-          createServer({appType: 'custom', server: {middlewareMode: true}}),
-        catch: (cause) => new DevelopmentServerError({cause}),
+      Effect.gen(function* () {
+        const {port, server} = yield* Hmr
+        return yield* Effect.tryPromise({
+          try: () =>
+            createServer({
+              appType: 'custom',
+              server: {middlewareMode: true, ws: {server, clientPort: port}},
+            }),
+          catch: (cause) => new DevelopmentServerError({cause}),
+        })
       }),
       (vite) => Effect.promise(() => vite.close())
     )
@@ -70,4 +102,8 @@ const Routes = HttpRouter.use(
 
 export const DevelopmentServer = HttpRouter.serve(Routes, {
   disableLogger: true,
-}).pipe(Layer.provide(Vite.layer), Layer.provide(Listen))
+}).pipe(
+  Layer.provide(Vite.layer),
+  Layer.provide(Hmr.layer),
+  Layer.provide(Listen)
+)
