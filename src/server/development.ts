@@ -8,7 +8,7 @@ import {
 import {NodeHttpServer, NodeHttpServerRequest} from '@effect/platform-node'
 import {Context, Effect, Layer, Match, Schema} from 'effect'
 import {HttpRouter, HttpServerRequest, HttpServerResponse} from 'effect/http'
-import {type ViteDevServer, createServer} from 'vite'
+import {type Logger, type ViteDevServer, createServer} from 'vite'
 
 import {Listen} from './listen.ts'
 
@@ -38,16 +38,52 @@ class Hmr extends Context.Service<Hmr, {port: number; server: Server}>()(
   )
 }
 
+// NOTE: Vite logs through a plain callback interface, so each call is forked into the Effect runtime that owns the logger.
+const effectLogger = Effect.map(Effect.context(), (context): Logger => {
+  const runWith = Effect.runForkWith(context)
+  const run = (effect: Effect.Effect<void>) =>
+    runWith(Effect.annotateLogs(effect, {component: 'vite'}))
+  const warned = new Set<string>()
+  const logged = new WeakSet<object>()
+  const logger: Logger = {
+    hasWarned: false,
+    info: (message) => {
+      run(Effect.logInfo(message))
+    },
+    warn: (message) => {
+      logger.hasWarned = true
+      run(Effect.logWarning(message))
+    },
+    warnOnce: (message) => {
+      if (!warned.has(message)) {
+        warned.add(message)
+        logger.warn(message)
+      }
+    },
+    error: (message, options) => {
+      if (options?.error) {
+        logged.add(options.error)
+      }
+      run(Effect.logError(message))
+    },
+    clearScreen: () => {},
+    hasErrorLogged: (error) => logged.has(error),
+  }
+  return logger
+})
+
 class Vite extends Context.Service<Vite, ViteDevServer>()('thisishugo/Vite') {
   static readonly layer = Layer.effect(
     Vite,
     Effect.acquireRelease(
       Effect.gen(function* () {
         const {port, server} = yield* Hmr
+        const customLogger = yield* effectLogger
         return yield* Effect.tryPromise({
           try: () =>
             createServer({
               appType: 'custom',
+              customLogger,
               server: {middlewareMode: true, ws: {server, clientPort: port}},
             }),
           catch: (cause) => new DevelopmentServerError({cause}),

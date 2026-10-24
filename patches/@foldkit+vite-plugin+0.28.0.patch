@@ -1,0 +1,194 @@
+diff --git a/node_modules/@foldkit/vite-plugin/dist/index.d.ts b/node_modules/@foldkit/vite-plugin/dist/index.d.ts
+index e63060d..756b1d5 100644
+--- a/node_modules/@foldkit/vite-plugin/dist/index.d.ts
++++ b/node_modules/@foldkit/vite-plugin/dist/index.d.ts
+@@ -1,3 +1,4 @@
++import type { Layer } from 'effect';
+ import type { Plugin } from 'vite';
+ import { type FoldkitBuildOptions } from './build.js';
+ import { type FoldkitSsrOptions } from './ssr.js';
+@@ -7,6 +8,13 @@ export { type FoldkitSsrOptions, foldkitSsr } from './ssr.js';
+ export { type ViewIdentityTransformResult, foldkitViewIdentity, transformViewIdentity, } from './viewIdentity.js';
+ /** Options for the `foldkit` Vite plugin. */
+ export type FoldkitPluginOptions = Readonly<{
++    /**
++     * Layer provided to the plugin's own Effect programs, for example
++     * `Logger.layer([Logger.consoleJson])`, so DevTools and preserve-model
++     * messages reach the same loggers as the rest of the application. By
++     * default they use Effect's default logger.
++     */
++    logger?: Layer.Layer<never>;
+     /**
+      * By default, the DevTools MCP relay listens on a loopback port of its own
+      * and publishes its address for the MCP server to find. Automatically
+diff --git a/node_modules/@foldkit/vite-plugin/dist/index.js b/node_modules/@foldkit/vite-plugin/dist/index.js
+index 2ea77b1..0ec6188 100644
+--- a/node_modules/@foldkit/vite-plugin/dist/index.js
++++ b/node_modules/@foldkit/vite-plugin/dist/index.js
+@@ -1,4 +1,4 @@
+-import { Array, Clock, ConfigProvider, Console, Crypto, Data, Duration, Effect, Exit, Fiber, HashMap, Layer, Match, Number, Option, Order, Predicate, Queue, Ref, Schedule, Schema, Stream, pipe, } from 'effect';
++import { Array, Clock, ConfigProvider, Crypto, Data, Duration, Effect, Exit, Fiber, HashMap, Layer, Match, Number, Option, Order, Predicate, Queue, Ref, Schedule, Schema, Stream, pipe, } from 'effect';
+ import { Event as DevToolsEvent, EventFrame, RELAY_RECORD_VERSION, RequestFrame, Response, ResponseFrame, } from 'foldkit/devtools-protocol';
+ import { PreserveModelMessage, RequestModelMessage, RestoreModelMessage, } from 'foldkit/model-preservation';
+ import { createHmac, timingSafeEqual } from 'node:crypto';
+@@ -102,7 +102,7 @@ class WebSocketSendFailed extends Data.TaggedError('WebSocketSendFailed') {
+ const byConnectionOrder = Order.mapInput(Order.Number, ({ sequence }) => sequence);
+ // HANDLERS
+ const handlePreserveModelReceived = (state, payload) => Exit.match(Schema.decodeUnknownExit(PreserveModelMessage)(payload), {
+-    onFailure: error => Console.warn('[foldkit:preserve] failed to decode preserve-model payload', error),
++    onFailure: error => Effect.logWarning('Failed to decode preserve-model payload').pipe(Effect.annotateLogs({ component: 'foldkit:preserve', error })),
+     onSuccess: ({ id, model, isReloadFlush }) => Ref.update(state.preservedModels, current => {
+         const existingFlag = Option.exists(HashMap.get(current, id), ({ isReloadFlush }) => isReloadFlush);
+         const entry = {
+@@ -113,7 +113,7 @@ const handlePreserveModelReceived = (state, payload) => Exit.match(Schema.decode
+     }),
+ });
+ const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema.decodeUnknownExit(RequestModelMessage)(payload), {
+-    onFailure: error => Console.warn('[foldkit:preserve] failed to decode request-model payload', error),
++    onFailure: error => Effect.logWarning('Failed to decode request-model payload').pipe(Effect.annotateLogs({ component: 'foldkit:preserve', error })),
+     onSuccess: ({ id }) => Effect.gen(function* () {
+         const current = yield* Ref.get(state.preservedModels);
+         const sendRestore = (model) => Effect.gen(function* () {
+@@ -123,7 +123,7 @@ const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema
+                 try: () => server.ws.send('foldkit:restore-model', encoded),
+                 catch: cause => new WebSocketSendFailed({ cause }),
+             });
+-        }).pipe(Effect.catch(error => Console.warn('[foldkit:preserve] failed to send restore-model payload', error)));
++        }).pipe(Effect.catch(error => Effect.logWarning('Failed to send restore-model payload').pipe(Effect.annotateLogs({ component: 'foldkit:preserve', error }))));
+         yield* Option.match(HashMap.get(current, id), {
+             onNone: () => sendRestore(undefined),
+             onSome: entry => {
+@@ -138,7 +138,7 @@ const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema
+ });
+ const handleHotUpdateFired = (state) => Ref.update(state.preservedModels, current => HashMap.map(current, entry => ({ ...entry, isReloadFlush: true })));
+ const handleBrowserEventFrameReceived = (state, data, client) => Exit.match(Schema.decodeUnknownExit(EventFrame)(data), {
+-    onFailure: error => Console.warn('[foldkit:devTools] failed to decode browser event frame', error),
++    onFailure: error => Effect.logWarning('Failed to decode browser event frame').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', error })),
+     onSuccess: frame => DevToolsEvent.match(frame.event, {
+         EventConnected: event => handleConnectedEvent(state, event, client),
+         EventDisconnected: event => handleDisconnectedEvent(state, event),
+@@ -152,21 +152,21 @@ const handleConnectedEvent = (state, event, client) => Effect.gen(function* () {
+         client,
+     };
+     yield* Ref.update(state.connectedRuntimes, HashMap.set(event.runtime.connectionId, connectedRuntime));
+-    yield* Console.log(`[foldkit:devTools] runtime connected: ${event.runtime.connectionId} (${event.runtime.title})`);
++    yield* Effect.logInfo('Runtime connected').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', connectionId: event.runtime.connectionId, title: event.runtime.title }));
+ });
+ const handleDisconnectedEvent = (state, event) => Effect.gen(function* () {
+     yield* Ref.update(state.connectedRuntimes, HashMap.remove(event.connectionId));
+-    yield* Console.log(`[foldkit:devTools] runtime disconnected: ${event.connectionId}`);
++    yield* Effect.logInfo('Runtime disconnected').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', connectionId: event.connectionId }));
+ });
+ const handleViteClientClosed = (state, client) => Effect.gen(function* () {
+     const prunedConnectionIds = yield* Ref.modify(state.connectedRuntimes, current => [
+         pipe(current, HashMap.filter(connectedRuntime => connectedRuntime.client === client), HashMap.keys, Array.fromIterable),
+         HashMap.filter(current, connectedRuntime => connectedRuntime.client !== client),
+     ]);
+-    yield* Effect.forEach(prunedConnectionIds, connectionId => Console.log(`[foldkit:devTools] runtime pruned (socket close): ${connectionId}`), { discard: true });
++    yield* Effect.forEach(prunedConnectionIds, connectionId => Effect.logInfo('Runtime pruned after socket close').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', connectionId })), { discard: true });
+ });
+ const handleBrowserResponseFrameReceived = (state, data) => Exit.match(Schema.decodeUnknownExit(ResponseFrame)(data), {
+-    onFailure: error => Console.warn('[foldkit:devTools] failed to decode browser response frame', error),
++    onFailure: error => Effect.logWarning('Failed to decode browser response frame').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', error })),
+     onSuccess: frame => broadcastResponseToMcpClients(state, frame),
+ });
+ const broadcastResponseToMcpClients = (state, frame) => Effect.gen(function* () {
+@@ -181,17 +181,17 @@ const broadcastResponseToMcpClients = (state, frame) => Effect.gen(function* ()
+ });
+ const handleMcpClientConnected = (state, client) => Effect.gen(function* () {
+     const total = yield* Effect.sync(() => state.mcpClients.add(client).size);
+-    yield* Console.log(`[foldkit:devTools] MCP client connected (${total} total)`);
++    yield* Effect.logInfo('MCP client connected').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', total }));
+ });
+ const handleMcpClientDisconnected = (state, client) => Effect.gen(function* () {
+     const remaining = yield* Effect.sync(() => {
+         state.mcpClients.delete(client);
+         return state.mcpClients.size;
+     });
+-    yield* Console.log(`[foldkit:devTools] MCP client disconnected (${remaining} remaining)`);
++    yield* Effect.logInfo('MCP client disconnected').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', remaining }));
+ });
+ const handleMcpRequestReceived = (server, state, client, raw) => Exit.match(Schema.decodeExit(Schema.fromJsonString(RequestFrame))(raw), {
+-    onFailure: error => Console.warn('[foldkit:devTools] failed to decode MCP request frame', error),
++    onFailure: error => Effect.logWarning('Failed to decode MCP request frame').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', error })),
+     onSuccess: frame => Match.value(frame.request).pipe(Match.tag('RequestListRuntimes', () => replyListRuntimes(state, client, frame.id)), Match.orElse(() => routeRequestToRuntime(server, state, client, frame))),
+ });
+ const sendToRequester = (client, responseFrame) => Effect.sync(() => {
+@@ -227,7 +227,7 @@ const forwardRequestToBrowsers = (server, frame) => Effect.gen(function* () {
+         try: () => server.ws.send('foldkit:devTools:request', encoded),
+         catch: cause => new WebSocketSendFailed({ cause }),
+     });
+-}).pipe(Effect.catch(error => Console.warn('[foldkit:devTools] failed to send request frame', error)));
++}).pipe(Effect.catch(error => Effect.logWarning('Failed to send request frame').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', error }))));
+ // EVENT DISPATCH
+ const dispatchEvent = (server, state, event) => Match.value(event).pipe(Match.tagsExhaustive({
+     PreserveModelReceived: ({ payload }) => handlePreserveModelReceived(state, payload),
+@@ -451,15 +451,22 @@ const reportRelayBindFailed = (maybePort, cause) => {
+     });
+     if (Option.isSome(maybePort) && isPortInUse(cause)) {
+         const port = maybePort.value;
+-        return Console.error(`\n[foldkit:devTools] Port ${port} is in use; the MCP relay did not start.\n` +
+-            `[foldkit:devTools] Stop the process using that port, or remove \`devToolsMcpPort\` from your Vite config to use automatic discovery.\n` +
+-            `[foldkit:devTools] If you choose another fixed port, set \`FOLDKIT_DEVTOOLS_MCP_PORT\` to match.\n`);
++        return Effect.logError('MCP relay port is in use; the relay did not start').pipe(Effect.annotateLogs({
++            component: 'foldkit:devTools',
++            port,
++            hint: 'Stop the process using that port, or remove `devToolsMcpPort` from your Vite config to use automatic discovery. If you choose another fixed port, set `FOLDKIT_DEVTOOLS_MCP_PORT` to match.',
++        }));
+     }
+     else {
+-        return Console.error(`[foldkit:devTools] MCP relay failed to start on ${where}; continuing without the relay`, cause);
++        return Effect.logError('MCP relay failed to start; continuing without the relay').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', where, error: cause }));
+     }
+ };
+-const unpublishedRelayMessage = (reason) => `[foldkit:devTools] Cannot publish the MCP relay address: ${reason}. Set matching devToolsMcpPort and FOLDKIT_DEVTOOLS_MCP_PORT values for MCP access on a trusted network, or set FOLDKIT_DEVTOOLS_RELAY_DIRECTORY to a directory private to your user.`;
++const logUnpublishedRelay = (reason, error) => Effect.logError('Cannot publish the MCP relay address').pipe(Effect.annotateLogs({
++    component: 'foldkit:devTools',
++    reason,
++    hint: 'Set matching devToolsMcpPort and FOLDKIT_DEVTOOLS_MCP_PORT values for MCP access on a trusted network, or set FOLDKIT_DEVTOOLS_RELAY_DIRECTORY to a directory private to your user.',
++    ...(error === undefined ? {} : { error }),
++}));
+ const publishRelay = (root, relay) => Effect.gen(function* () {
+     const startedAt = yield* Clock.currentTimeMillis;
+     const directory = yield* publishRelayRecord({
+@@ -471,7 +478,7 @@ const publishRelay = (root, relay) => Effect.gen(function* () {
+         startedAt,
+     }, relayRegistryTrust);
+     return Option.some(directory);
+-}).pipe(Effect.catchTag('RelayRegistryDirectoryRefused', ({ directory, reason }) => Effect.as(Console.error(unpublishedRelayMessage(`the registry directory ${directory} ${reason}`)), Option.none())), Effect.catch(error => Effect.as(Console.error(unpublishedRelayMessage('the registry could not be written'), error), Option.none())));
++}).pipe(Effect.catchTag('RelayRegistryDirectoryRefused', ({ directory, reason }) => Effect.as(logUnpublishedRelay(`the registry directory ${directory} ${reason}`), Option.none())), Effect.catch(error => Effect.as(logUnpublishedRelay('the registry could not be written', error), Option.none())));
+ const startMcpRelay = (server, devToolsMcpPort, enqueue) => {
+     const root = server.config.root;
+     return Effect.gen(function* () {
+@@ -489,19 +496,19 @@ const startMcpRelay = (server, devToolsMcpPort, enqueue) => {
+         return yield* Effect.acquireRelease(acquire, relay => Effect.gen(function* () {
+             const maybeDirectory = yield* Ref.get(publishedDirectory);
+             if (Option.isSome(maybeDirectory)) {
+-                yield* retireRelayRecord(relay.id, maybeDirectory.value).pipe(Effect.catch(error => Console.error('[foldkit:devTools] could not remove the MCP relay registry record', error)));
++                yield* retireRelayRecord(relay.id, maybeDirectory.value).pipe(Effect.catch(error => Effect.logError('Could not remove the MCP relay registry record').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', error }))));
+             }
+             relay.closeListener();
+             for (const client of relay.wss.clients) {
+                 client.terminate();
+             }
+             relay.wss.close();
+-            yield* Console.log('[foldkit:devTools] MCP relay stopped');
++            yield* Effect.logInfo('MCP relay stopped').pipe(Effect.annotateLogs({ component: 'foldkit:devTools' }));
+         })).pipe(Effect.retry({
+             while: ({ cause }) => isPortInUse(cause),
+             times: RELAY_BIND_RETRY_COUNT,
+             schedule: Schedule.spaced(RELAY_BIND_RETRY_DELAY),
+-        }), Effect.tap(relay => Console.log(`[foldkit:devTools] MCP relay listening at ${relayUrlForLog(relay.url)}`)), Effect.tap(relay => Effect.uninterruptible(publishRelay(root, relay).pipe(Effect.flatMap(maybeDirectory => Ref.set(publishedDirectory, maybeDirectory))))), Effect.catchTag('RelayBindFailed', ({ maybePort, cause }) => reportRelayBindFailed(maybePort, cause)));
++        }), Effect.tap(relay => Effect.logInfo('MCP relay listening').pipe(Effect.annotateLogs({ component: 'foldkit:devTools', url: relayUrlForLog(relay.url) }))), Effect.tap(relay => Effect.uninterruptible(publishRelay(root, relay).pipe(Effect.flatMap(maybeDirectory => Ref.set(publishedDirectory, maybeDirectory))))), Effect.catchTag('RelayBindFailed', ({ maybePort, cause }) => reportRelayBindFailed(maybePort, cause)));
+     });
+ };
+ // NOTE: A Vitest run can override its mode, but still carries Vitest plugins.
+@@ -564,7 +571,7 @@ export const foldkit = (options = {}) => {
+             const events = Effect.runSync(Queue.unbounded());
+             // NOTE: The default ConfigProvider snapshots the environment. Create a
+             // fresh one so a restarted server sees current values.
+-            const fiber = Effect.runFork(Effect.scoped(main(server, events, options)).pipe(Effect.provide(relayRegistryLayer), Effect.provideService(ConfigProvider.ConfigProvider, ConfigProvider.fromEnv())));
++            const fiber = Effect.runFork(Effect.scoped(main(server, events, options)).pipe(Effect.provide(relayRegistryLayer), Effect.provide(options.logger ?? Layer.empty), Effect.provideService(ConfigProvider.ConfigProvider, ConfigProvider.fromEnv())));
+             mainRuns.set(server.config, { events, fiber });
+         },
+         // NOTE: Middleware mode has no HTTP server to close. Vite still calls
