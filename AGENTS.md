@@ -26,6 +26,16 @@ has been sent; the handler also reaches Effect's own error responses.
 
 Drop a patch in `patches/` once a release of its package carries the fix.
 
+## Scripts
+
+Use `npm run <script>` with a script in package.json, never a standalone
+equivalent.
+
+## TypeScript
+
+Type checking is done via oxlint in type-aware and type-check mode. Never tsc or
+equivalent in isolation.
+
 ## Tests
 
 A test earns its place when its failure means our code is wrong:
