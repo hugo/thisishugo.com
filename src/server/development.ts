@@ -6,6 +6,7 @@ import {HttpRouter, HttpServerRequest, HttpServerResponse} from 'effect/http'
 import {type ViteDevServer, createServer} from 'vite'
 
 import {Listen} from './listen.ts'
+import {SecurityPolicy} from './policy.ts'
 
 class DevelopmentServerError extends Schema.TaggedError<DevelopmentServerError>()(
   'DevelopmentServerError',
@@ -29,6 +30,7 @@ class Vite extends Context.Service<Vite, ViteDevServer>()('thisishugo/Vite') {
 // NOTE: Vite writes to the Node response directly; Effect skips writing a response that has already ended.
 const viteResponse = Effect.fn('Vite.respond')(function* (
   vite: ViteDevServer,
+  headers: Readonly<Record<string, string>>,
   request: HttpServerRequest.HttpServerRequest
 ) {
   const incoming = NodeHttpServerRequest.toIncomingMessage(request)
@@ -39,6 +41,7 @@ const viteResponse = Effect.fn('Vite.respond')(function* (
   ) {
     return yield* Effect.die('Vite middleware serves HTTP/1 requests only')
   }
+  outgoing.setHeaders(new Headers(headers))
   return yield* Effect.callback<HttpServerResponse.HttpServerResponse>(
     (resume) => {
       const onFinish = () => {
@@ -58,11 +61,12 @@ const viteResponse = Effect.fn('Vite.respond')(function* (
 const Routes = HttpRouter.use(
   Effect.fn(function* (router) {
     const vite = yield* Vite
+    const {headers} = yield* SecurityPolicy
     yield* router.add(
       '*',
       '/*',
       HttpServerRequest.HttpServerRequest.use((request) =>
-        viteResponse(vite, request)
+        viteResponse(vite, headers, request)
       )
     )
   })
