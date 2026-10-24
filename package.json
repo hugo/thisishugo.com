@@ -20,7 +20,7 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "node src/server/main.dev.ts",
+    "dev": "node --watch-path=src/server --watch-preserve-output src/server/main.dev.ts",
     "build": "vite build",
     "start": "node src/server/main.prod.ts",
     "test": "vitest run",
