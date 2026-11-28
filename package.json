@@ -24,6 +24,7 @@
     "build": "vite build",
     "start": "node src/server/main.prod.ts",
     "test": "vitest run",
+    "test:browser:install": "playwright install chromium",
     "test:watch": "vitest",
     "check": "oxlint --report-unused-disable-directives",
     "check:fix": "oxlint --fix",
@@ -33,35 +34,38 @@
     "observatory": "node scripts/observatory.ts"
   },
   "dependencies": {
-    "@effect/platform-browser": "4.0.6",
-    "@effect/platform-node": "4.0.6",
-    "@foldkit/ui": "0.169.0",
-    "effect": "4.0.6",
-    "foldkit": "0.169.0",
+    "@effect/platform-browser": "4.1.7",
+    "@effect/platform-node": "4.1.7",
+    "@foldkit/ui": "0.171.0",
+    "effect": "4.1.7",
+    "foldkit": "0.171.0",
     "patch-package": "8.0.1"
   },
   "devDependencies": {
-    "@effect/platform-node-shared": "4.0.6",
-    "@effect/vitest": "4.0.6",
-    "@foldkit/devtools": "0.169.0",
-    "@foldkit/devtools-mcp": "0.25.0",
-    "@foldkit/oxlint-plugin": "0.15.3",
-    "@foldkit/vite-plugin": "0.28.0",
+    "@effect/platform-node-shared": "4.1.7",
+    "@effect/vitest": "4.1.7",
+    "@foldkit/devtools": "0.171.0",
+    "@foldkit/devtools-mcp": "0.26.0",
+    "@foldkit/oxlint-plugin": "0.15.4",
+    "@foldkit/vite-plugin": "0.29.1",
     "@tailwindcss/vite": "4.3.5",
-    "@types/node": "26.6.6",
-    "@vitest/browser-playwright": "5.0.5",
-    "oxfmt": "0.79.0",
+    "@types/node": "26.6.11",
+    "@vitest/browser-playwright": "5.1.2",
+    "oxfmt": "0.80.0",
     "oxlint": "1.95.0",
-    "oxlint-tsgolint": "7.0.2008",
+    "oxlint-tsgolint": "7.0.2009",
     "playwright": "1.65.1",
     "tailwindcss": "4.3.5",
-    "vite": "8.3.8",
-    "vitest": "5.0.5"
+    "vite": "8.4.0",
+    "vitest": "5.1.2"
   },
   "overrides": {
     "@effect/platform-browser": "$@effect/platform-browser",
     "@effect/platform-node": "$@effect/platform-node",
     "@effect/platform-node-shared": "$@effect/platform-node-shared",
+    "@foldkit/devtools-mcp": {
+      "@modelcontextprotocol/sdk": "1.32.2"
+    },
     "effect": "$effect"
   },
   "engines": {

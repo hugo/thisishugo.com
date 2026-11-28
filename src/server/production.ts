@@ -1,7 +1,7 @@
 import {pathToFileURL} from 'node:url'
 
-import {Config, Context, Effect, Layer, Predicate, Schema} from 'effect'
 import type {Scope} from 'effect'
+import {Config, Context, Effect, Layer, Predicate, Schema} from 'effect'
 import * as FileSystem from 'effect/FileSystem'
 import {
   HttpRouter,

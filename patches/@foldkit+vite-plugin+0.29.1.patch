@@ -22,16 +22,16 @@ index e63060d..756b1d5 100644
       * By default, the DevTools MCP relay listens on a loopback port of its own
       * and publishes its address for the MCP server to find. Automatically
 diff --git a/node_modules/@foldkit/vite-plugin/dist/index.js b/node_modules/@foldkit/vite-plugin/dist/index.js
-index 2ea77b1..0ec6188 100644
+index d403cf4..9da1ad5 100644
 --- a/node_modules/@foldkit/vite-plugin/dist/index.js
 +++ b/node_modules/@foldkit/vite-plugin/dist/index.js
 @@ -1,4 +1,4 @@
--import { Array, Clock, ConfigProvider, Console, Crypto, Data, Duration, Effect, Exit, Fiber, HashMap, Layer, Match, Number, Option, Order, Predicate, Queue, Ref, Schedule, Schema, Stream, pipe, } from 'effect';
-+import { Array, Clock, ConfigProvider, Crypto, Data, Duration, Effect, Exit, Fiber, HashMap, Layer, Match, Number, Option, Order, Predicate, Queue, Ref, Schedule, Schema, Stream, pipe, } from 'effect';
+-import { Array, Clock, ConfigProvider, Console, Data, Duration, Effect, Exit, Fiber, HashMap, Layer, Match, Number, Option, Order, Predicate, Queue, Ref, Schedule, Schema, Stream, pipe, } from 'effect';
++import { Array, Clock, ConfigProvider, Data, Duration, Effect, Exit, Fiber, HashMap, Layer, Match, Number, Option, Order, Predicate, Queue, Ref, Schedule, Schema, Stream, pipe, } from 'effect';
+ import { SecureRandom } from 'effect/crypto';
  import { Event as DevToolsEvent, EventFrame, RELAY_RECORD_VERSION, RequestFrame, Response, ResponseFrame, } from 'foldkit/devtools-protocol';
  import { PreserveModelMessage, RequestModelMessage, RestoreModelMessage, } from 'foldkit/model-preservation';
- import { createHmac, timingSafeEqual } from 'node:crypto';
-@@ -102,7 +102,7 @@ class WebSocketSendFailed extends Data.TaggedError('WebSocketSendFailed') {
+@@ -106,7 +106,7 @@ class WebSocketSendFailed extends Data.TaggedError('WebSocketSendFailed') {
  const byConnectionOrder = Order.mapInput(Order.Number, ({ sequence }) => sequence);
  // HANDLERS
  const handlePreserveModelReceived = (state, payload) => Exit.match(Schema.decodeUnknownExit(PreserveModelMessage)(payload), {
@@ -40,7 +40,7 @@ index 2ea77b1..0ec6188 100644
      onSuccess: ({ id, model, isReloadFlush }) => Ref.update(state.preservedModels, current => {
          const existingFlag = Option.exists(HashMap.get(current, id), ({ isReloadFlush }) => isReloadFlush);
          const entry = {
-@@ -113,7 +113,7 @@ const handlePreserveModelReceived = (state, payload) => Exit.match(Schema.decode
+@@ -117,7 +117,7 @@ const handlePreserveModelReceived = (state, payload) => Exit.match(Schema.decode
      }),
  });
  const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema.decodeUnknownExit(RequestModelMessage)(payload), {
@@ -49,7 +49,7 @@ index 2ea77b1..0ec6188 100644
      onSuccess: ({ id }) => Effect.gen(function* () {
          const current = yield* Ref.get(state.preservedModels);
          const sendRestore = (model) => Effect.gen(function* () {
-@@ -123,7 +123,7 @@ const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema
+@@ -127,7 +127,7 @@ const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema
                  try: () => server.ws.send('foldkit:restore-model', encoded),
                  catch: cause => new WebSocketSendFailed({ cause }),
              });
@@ -58,7 +58,7 @@ index 2ea77b1..0ec6188 100644
          yield* Option.match(HashMap.get(current, id), {
              onNone: () => sendRestore(undefined),
              onSome: entry => {
-@@ -138,7 +138,7 @@ const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema
+@@ -142,7 +142,7 @@ const handleRequestModelReceived = (server, state, payload) => Exit.match(Schema
  });
  const handleHotUpdateFired = (state) => Ref.update(state.preservedModels, current => HashMap.map(current, entry => ({ ...entry, isReloadFlush: true })));
  const handleBrowserEventFrameReceived = (state, data, client) => Exit.match(Schema.decodeUnknownExit(EventFrame)(data), {
@@ -67,7 +67,7 @@ index 2ea77b1..0ec6188 100644
      onSuccess: frame => DevToolsEvent.match(frame.event, {
          EventConnected: event => handleConnectedEvent(state, event, client),
          EventDisconnected: event => handleDisconnectedEvent(state, event),
-@@ -152,21 +152,21 @@ const handleConnectedEvent = (state, event, client) => Effect.gen(function* () {
+@@ -156,21 +156,21 @@ const handleConnectedEvent = (state, event, client) => Effect.gen(function* () {
          client,
      };
      yield* Ref.update(state.connectedRuntimes, HashMap.set(event.runtime.connectionId, connectedRuntime));
@@ -93,7 +93,7 @@ index 2ea77b1..0ec6188 100644
      onSuccess: frame => broadcastResponseToMcpClients(state, frame),
  });
  const broadcastResponseToMcpClients = (state, frame) => Effect.gen(function* () {
-@@ -181,17 +181,17 @@ const broadcastResponseToMcpClients = (state, frame) => Effect.gen(function* ()
+@@ -185,17 +185,17 @@ const broadcastResponseToMcpClients = (state, frame) => Effect.gen(function* ()
  });
  const handleMcpClientConnected = (state, client) => Effect.gen(function* () {
      const total = yield* Effect.sync(() => state.mcpClients.add(client).size);
@@ -114,7 +114,7 @@ index 2ea77b1..0ec6188 100644
      onSuccess: frame => Match.value(frame.request).pipe(Match.tag('RequestListRuntimes', () => replyListRuntimes(state, client, frame.id)), Match.orElse(() => routeRequestToRuntime(server, state, client, frame))),
  });
  const sendToRequester = (client, responseFrame) => Effect.sync(() => {
-@@ -227,7 +227,7 @@ const forwardRequestToBrowsers = (server, frame) => Effect.gen(function* () {
+@@ -231,7 +231,7 @@ const forwardRequestToBrowsers = (server, frame) => Effect.gen(function* () {
          try: () => server.ws.send('foldkit:devTools:request', encoded),
          catch: cause => new WebSocketSendFailed({ cause }),
      });
@@ -123,7 +123,7 @@ index 2ea77b1..0ec6188 100644
  // EVENT DISPATCH
  const dispatchEvent = (server, state, event) => Match.value(event).pipe(Match.tagsExhaustive({
      PreserveModelReceived: ({ payload }) => handlePreserveModelReceived(state, payload),
-@@ -451,15 +451,22 @@ const reportRelayBindFailed = (maybePort, cause) => {
+@@ -455,15 +455,22 @@ const reportRelayBindFailed = (maybePort, cause) => {
      });
      if (Option.isSome(maybePort) && isPortInUse(cause)) {
          const port = maybePort.value;
@@ -151,7 +151,7 @@ index 2ea77b1..0ec6188 100644
  const publishRelay = (root, relay) => Effect.gen(function* () {
      const startedAt = yield* Clock.currentTimeMillis;
      const directory = yield* publishRelayRecord({
-@@ -471,7 +478,7 @@ const publishRelay = (root, relay) => Effect.gen(function* () {
+@@ -475,7 +482,7 @@ const publishRelay = (root, relay) => Effect.gen(function* () {
          startedAt,
      }, relayRegistryTrust);
      return Option.some(directory);
@@ -160,7 +160,7 @@ index 2ea77b1..0ec6188 100644
  const startMcpRelay = (server, devToolsMcpPort, enqueue) => {
      const root = server.config.root;
      return Effect.gen(function* () {
-@@ -489,19 +496,19 @@ const startMcpRelay = (server, devToolsMcpPort, enqueue) => {
+@@ -493,19 +500,19 @@ const startMcpRelay = (server, devToolsMcpPort, enqueue) => {
          return yield* Effect.acquireRelease(acquire, relay => Effect.gen(function* () {
              const maybeDirectory = yield* Ref.get(publishedDirectory);
              if (Option.isSome(maybeDirectory)) {
@@ -183,7 +183,7 @@ index 2ea77b1..0ec6188 100644
      });
  };
  // NOTE: A Vitest run can override its mode, but still carries Vitest plugins.
-@@ -564,7 +571,7 @@ export const foldkit = (options = {}) => {
+@@ -568,7 +575,7 @@ export const foldkit = (options = {}) => {
              const events = Effect.runSync(Queue.unbounded());
              // NOTE: The default ConfigProvider snapshots the environment. Create a
              // fresh one so a restarted server sees current values.
